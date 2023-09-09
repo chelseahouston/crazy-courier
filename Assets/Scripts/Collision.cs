@@ -6,24 +6,50 @@ using UnityEngine;
 // @date-last-update-dd-mm-yy: 10-09-23
 public class Collision : MonoBehaviour
 {
+    public bool pickedup = false; // order not picked up at start
+    public Job job; // job script
 
-    private void OnCollisionEnter2D(Collision2D collision)
+
+    private void OnCollisionEnter2D(Collision2D thing)
     {
 
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerEnter2D(Collider2D thing)
     {
+        
         // if the restaurant is correct
-        // pickup order and set pickedup bool to true
-        // and remove waypoint from restaurant to customer house
-        // set restaurantGameObject to null?
-        // else do nothing
+        if (thing.tag == "Current Restaurant")
+        {
+            // pickup order and set pickedup bool to true
+            pickedup = true;
+            Debug.Log("Picked up Order");
+            // and remove waypoint from restaurant to customer house
+            // set restaurantGameObject tag to default untagged
+            thing.tag = "Untagged";
+        }
+        else
+        {
+            // else do nothing
+        }
+
 
         // if the customer house is correct and pickedup is true
-        // deliver order
-        // set customerGameObject to null?
-        // else do nothing
+        if (thing.tag == "Current Customer" && pickedup)
+        {
+            Debug.Log("Delivered to Customer!");
+            // deliver order
+            job = GetComponent<Job>();
+            job.CompleteJob();
+
+            // set customerGameObject tag to default untagged
+            thing.tag = "Untagged";
+
+        }
+        else
+        {
+            // else do nothing
+        }
     }
 
 
