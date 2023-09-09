@@ -12,7 +12,8 @@ public class FollowCam : MonoBehaviour
     [SerializeField] GameObject driver;
 
     // Update is called once per frame
-    void Update()
+    // LateUpdate called last in Update Execution
+    void LateUpdate()
     {
         transform.position = driver.transform.position + new Vector3 (0, 0, -40);
     }

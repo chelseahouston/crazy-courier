@@ -9,12 +9,21 @@ public class Collision : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        Debug.Log("Collision!");
+
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("Trigger!");
+        // if the restaurant is correct
+        // pickup order and set pickedup bool to true
+        // and remove waypoint from restaurant to customer house
+        // set restaurantGameObject to null?
+        // else do nothing
+
+        // if the customer house is correct and pickedup is true
+        // deliver order
+        // set customerGameObject to null?
+        // else do nothing
     }
 
 
