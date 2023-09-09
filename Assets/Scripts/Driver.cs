@@ -14,8 +14,8 @@ public class Driver : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        speed = 0.01f;
-        steerSpeed = 1f;
+        speed = 15f;
+        steerSpeed = 180f;
     }
 
     // Update is called once per frame
