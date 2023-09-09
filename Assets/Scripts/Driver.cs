@@ -15,7 +15,7 @@ public class Driver : MonoBehaviour
     void Start()
     {
         speed = 15f;
-        steerSpeed = 180f;
+        steerSpeed = 300f;
     }
 
     // Update is called once per frame
