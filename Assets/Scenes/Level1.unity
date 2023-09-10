@@ -5809,8 +5809,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 5
-  m_fontSizeBase: 5
+  m_fontSize: 6
+  m_fontSizeBase: 6
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -6056,12 +6056,12 @@ GameObject:
   - component: {fileID: 457984925}
   - component: {fileID: 457984924}
   m_Layer: 5
-  m_Name: JobAccepted
+  m_Name: JobAcceptedScreen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &457984923
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6900,9 +6900,10 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 2095283033}
   - {fileID: 1102664854}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &519420033
 MonoBehaviour:
@@ -7303,7 +7304,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 145}
 --- !u!50 &556550693
 Rigidbody2D:
@@ -10668,7 +10669,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &789853480
 RectTransform:
   m_ObjectHideFlags: 0
@@ -12241,7 +12242,7 @@ Transform:
   - {fileID: 290002768}
   - {fileID: 1838197581}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &897357461
 GameObject:
@@ -12753,7 +12754,7 @@ Transform:
   - {fileID: 290215132}
   - {fileID: 1788784926}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &949135862
 GameObject:
@@ -13810,12 +13811,12 @@ GameObject:
   - component: {fileID: 1015839917}
   - component: {fileID: 1015839916}
   m_Layer: 5
-  m_Name: JobDeclined
+  m_Name: JobDeclinedScreen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1015839915
 RectTransform:
   m_ObjectHideFlags: 0
@@ -15171,7 +15172,7 @@ Transform:
   - {fileID: 359307992}
   - {fileID: 795611854}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1102664850
 GameObject:
@@ -15267,7 +15268,7 @@ RectTransform:
   m_Children:
   - {fileID: 51617906}
   m_Father: {fileID: 519420032}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -15340,7 +15341,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1109634630
 GameObject:
@@ -18077,8 +18078,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 5
-  m_fontSizeBase: 5
+  m_fontSize: 6
+  m_fontSizeBase: 6
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -18640,9 +18641,9 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1319033280}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.99999994, y: 0.99999994, z: 0.99999994}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 789853480}
@@ -18650,7 +18651,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 1.2, y: -53.6}
+  m_AnchoredPosition: {x: 1.2, y: -53.60002}
   m_SizeDelta: {x: 82.1771, y: 16.4533}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1319033282
@@ -19384,8 +19385,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 5
-  m_fontSizeBase: 5
+  m_fontSize: 6
+  m_fontSizeBase: 6
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -23280,8 +23281,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 5
-  m_fontSizeBase: 5
+  m_fontSize: 6
+  m_fontSizeBase: 6
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -28677,7 +28678,7 @@ Transform:
   - {fileID: 734447041}
   - {fileID: 1134388730}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2020898956
 GameObject:
@@ -30136,11 +30137,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2095283032}
   m_LocalRotation: {x: -0, y: -0, z: 0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: 8.221579, y: 21, z: 0}
+  m_LocalPosition: {x: 8.221579, y: -36, z: 10}
   m_LocalScale: {x: 3, y: 3, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 519420032}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2095283034
@@ -30180,6 +30181,18 @@ MonoBehaviour:
   restaurantGameObject: {fileID: 0}
   customerHouseGameObject: {fileID: 0}
   jobOfferOnScreen: 0
+  generatingJobScreen: {fileID: 1320095084}
+  jobScreen: {fileID: 789853479}
+  acceptedJobScreen: {fileID: 457984922}
+  declinedJobScreen: {fileID: 1015839914}
+  orderNoDisplay: {fileID: 1674997699}
+  restaurantDisplay: {fileID: 1353503698}
+  customerDisplay: {fileID: 1289828129}
+  payDisplay: {fileID: 1319033282}
+  acceptedOrderNo: {fileID: 1671950249}
+  acceptedRestaurant: {fileID: 436668881}
+  acceptedCustomer: {fileID: 1625637258}
+  acceptedPay: {fileID: 1036561268}
 --- !u!1 &2106332661
 GameObject:
   m_ObjectHideFlags: 0
