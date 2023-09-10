@@ -3,11 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // @author: chelsea houston
-// @date-last-update-dd-mm-yy: 10-09-23
+// @date-last-update-dd-mm-yy: 11-09-23
 public class Collision : MonoBehaviour
 {
     public bool pickedup = false; // order not picked up at start
     public Job job; // job script
+    public GameObject data;
+
+    private void Start()
+    {
+        data = GameObject.Find("Data");
+        job = data.GetComponent<Job>();
+    }
 
 
     private void OnCollisionEnter2D(Collision2D thing)
@@ -27,6 +34,8 @@ public class Collision : MonoBehaviour
             // and remove waypoint from restaurant to customer house
             // set restaurantGameObject tag to default untagged
             thing.tag = "Untagged";
+
+            job.ShowCustomerAddress();
         }
         else
         {
@@ -39,7 +48,6 @@ public class Collision : MonoBehaviour
         {
             Debug.Log("Delivered to Customer!");
             // deliver order
-            job = GetComponent<Job>();
             job.CompleteJob();
 
             // set customerGameObject tag to default untagged
