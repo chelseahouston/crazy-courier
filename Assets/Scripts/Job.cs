@@ -4,9 +4,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 using TMPro;
+using UnityEngine.Windows;
 
 // @author: chelsea houston
-// @date-last-update-dd-mm-yy: 10-09-23
+// @date-last-update-dd-mm-yy: 11-09-23
 
 // generates jobs at random
 
@@ -25,9 +26,10 @@ public class Job : MonoBehaviour
     public GameObject customerHouseGameObject; // where to deliver current order
     public bool jobOfferOnScreen = false; // if the potential job is shown on phone, false to start
     public bool jobAccepted = false; // if a job has been accepted
-    public GameObject generatingJobScreen, jobScreen, acceptedJobScreen, declinedJobScreen; // phone screens
+    public GameObject generatingJobScreen, jobScreen, acceptedJobScreen, declinedJobScreen, completedJobScreen; // phone screens
     public TextMeshProUGUI  orderNoDisplay, restaurantDisplay, customerDisplay, payDisplay; // for job found
     public TextMeshProUGUI acceptedOrderNo, acceptedRestaurant, acceptedCustomer, acceptedPay; // for job accepted
+    public TextMeshProUGUI completedPayment; // pay from job completed
 
     // Start is called before the first frame update
     void Start()
@@ -36,6 +38,7 @@ public class Job : MonoBehaviour
         jobScreen.SetActive(false);
         acceptedJobScreen.SetActive(false);
         declinedJobScreen.SetActive(false);
+        completedJobScreen.SetActive(false);
 
         // list of restaurants
         restaurants.AddRange(new List<string> {
@@ -69,22 +72,24 @@ public class Job : MonoBehaviour
         {
             GenerateJob();
         }
+
         if (jobOfferOnScreen)
         {
-            if (Input.GetKeyDown(KeyCode.N))
+            if (UnityEngine.Input.GetKeyDown(KeyCode.N))
             {
                 StartCoroutine(DeclineJobCoroutine());
             }
-            if (Input.GetKeyDown(KeyCode.Y))
+            if (UnityEngine.Input.GetKeyDown(KeyCode.Y))
             {
                 AcceptJob();
             }
         }
+
         if (jobAccepted)
         {
-            if (Input.GetKeyDown(KeyCode.C))
+            if (UnityEngine.Input.GetKeyDown(KeyCode.C))
             {
-                DeclineJobCoroutine();
+                StartCoroutine(DeclineJobCoroutine());
             }
         }
     }
@@ -99,19 +104,10 @@ public class Job : MonoBehaviour
     {
         complete = false; // job not completed yet
         jobAccepted = false; // job not accepted yet
-        generatingJobScreen.SetActive(true);
-        yield return new WaitForSeconds(Random.Range(1, 5));
-        generatingJobScreen.SetActive(false);
-        jobScreen.SetActive(true);
-        jobOfferOnScreen = true;
 
-    }
-    public void GenerateJob()
-    {
-        acceptedJobScreen.SetActive(false);
-        declinedJobScreen.SetActive(false);
-        // coroutine of animation whilst "searching" for a job
-        StartCoroutine(GeneratingJobCoroutine());
+        generatingJobScreen.SetActive(true);
+
+        yield return new WaitForSeconds(Random.Range(1f, 5f));
 
         // get random restaurant
         int randomRest = Random.Range(0, restaurants.Count);
@@ -134,8 +130,26 @@ public class Job : MonoBehaviour
         customerDisplay.text += jobCustomer.GetName() + "<br>" + jobCustomer.GetAddress();
         payDisplay.text += jobPay;
 
+        generatingJobScreen.SetActive(false);
         Debug.Log("Order #" + orderNo + " Pick up from: " + jobRestaurant + " Deliver to: " + jobCustomer.GetName() + " at " + jobCustomer.GetAddress() + " Payment: $" + jobPay);
-       
+        
+        jobScreen.SetActive(true);
+        jobOfferOnScreen = true;
+
+        Debug.Log("JobAccepted = " + jobAccepted);
+    }
+
+    public void GenerateJob()
+    {
+        DefaultPhoneText();
+        jobScreen.SetActive(false);
+        acceptedJobScreen.SetActive(false);
+        declinedJobScreen.SetActive(false);
+        completedJobScreen.SetActive(false);
+
+        // coroutine of animation whilst "searching" for a job
+        StartCoroutine(GeneratingJobCoroutine());
+
     }
 
     public void AcceptJob()
@@ -151,6 +165,8 @@ public class Job : MonoBehaviour
         acceptedRestaurant.text += jobRestaurant;
         acceptedCustomer.text += jobCustomer.GetName() + "<br>" + jobCustomer.GetAddress();
         acceptedPay.text += jobPay;
+        completedPayment.text += jobPay;
+        acceptedCustomer.enabled = false; ; // just show pickup address first
 
         // set restaurant and customer home game objects for current job
         restaurantGameObject = GameObject.Find(jobRestaurant);
@@ -158,8 +174,18 @@ public class Job : MonoBehaviour
         customerHouseGameObject = GameObject.Find(jobCustomer.address);
         customerHouseGameObject.tag = "Current Customer";
 
-        // change UI on phone to say Current Job and details
+        Debug.Log("JobAccepted = " + jobAccepted);
     }
+
+    public void ShowCustomerAddress()
+    {
+        acceptedRestaurant = acceptedRestaurant.GetComponent<TextMeshProUGUI>();
+        acceptedCustomer = acceptedCustomer.GetComponent<TextMeshProUGUI>();
+        acceptedRestaurant.enabled = false; // when order picked up, dont show pickup address
+        acceptedCustomer.enabled = true;  // show customer address
+    }
+
+
 
     public IEnumerator DeclineJobCoroutine()
     {
@@ -172,20 +198,26 @@ public class Job : MonoBehaviour
         customerHouseGameObject = GameObject.Find(jobCustomer.address);
         customerHouseGameObject.tag = "Untagged";
         yield return new WaitForSeconds(1.5f);
-        DefaultPhoneText();
+
         GenerateJob(); // generate new job
     }
 
     public void CompleteJob()
     {
+        StartCoroutine(CompleteJobCoroutine());
+    }
+
+    public IEnumerator CompleteJobCoroutine()
+    {
+        acceptedJobScreen.SetActive(false);
+        completedJobScreen.SetActive(true);
+        yield return new WaitForSeconds(1.0f);
         // update TMPro text to default
         DefaultPhoneText();
         // update money wallet
         // update jobs completed
         complete = true;
-
-
-
+        jobAccepted = false;
     }
 
     public void DefaultPhoneText()
@@ -199,5 +231,19 @@ public class Job : MonoBehaviour
         acceptedRestaurant.text = "Pickup: <br>";
         acceptedCustomer.text = "Delivery: <br>";
         acceptedPay.text = "$";
+    }
+
+    public void OnApplicationQuit()
+    {
+        restaurantGameObject = GameObject.Find(jobRestaurant);
+        if (restaurantGameObject != null)
+        {
+            restaurantGameObject.tag = "Untagged";
+        }
+        customerHouseGameObject = GameObject.Find(jobCustomer.address);
+        if (customerHouseGameObject != null)
+        {
+            customerHouseGameObject.tag = "Untagged";
+        }
     }
 }
