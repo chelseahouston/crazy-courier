@@ -19,21 +19,27 @@ public class Job : MonoBehaviour
     public string jobRestaurant; // name of current job restaurant pickup location
     public Customer jobCustomer; // current job customer
     public int orderNo; // current order number
-    public string jobPay; // how much money the job pays
+    private float pay; // how much money the job pays
+    public string jobPay; // how much money the job pays to string
     public CustomerData customerData; // customer data script
     public bool complete; // is current job complete?
     public GameObject restaurantGameObject; // where to pick up current order
     public GameObject customerHouseGameObject; // where to deliver current order
-    public bool jobOfferOnScreen = false; // if the potential job is shown on phone, false to start
-    public bool jobAccepted = false; // if a job has been accepted
+    private bool jobOfferOnScreen = false; // if the potential job is shown on phone, false to start
+    private bool jobAccepted = false; // if a job has been accepted
     public GameObject generatingJobScreen, jobScreen, acceptedJobScreen, declinedJobScreen, completedJobScreen; // phone screens
     public TextMeshProUGUI  orderNoDisplay, restaurantDisplay, customerDisplay, payDisplay; // for job found
     public TextMeshProUGUI acceptedOrderNo, acceptedRestaurant, acceptedCustomer, acceptedPay; // for job accepted
     public TextMeshProUGUI completedPayment; // pay from job completed
+    public TextMeshProUGUI money; // total pay text
+    private float currentMoney; // total pay so far
 
     // Start is called before the first frame update
     void Start()
     {
+        currentMoney = 0.00f;
+        money.text = "$ " + currentMoney + "";
+
         generatingJobScreen.SetActive(false);
         jobScreen.SetActive(false);
         acceptedJobScreen.SetActive(false);
@@ -122,7 +128,7 @@ public class Job : MonoBehaviour
         orderNo++;
 
         // create random number for job pay
-        float pay = Random.Range(3.5f, 15.0f);
+        pay = Random.Range(3.5f, 15.0f);
         jobPay = pay.ToString("#.##");
 
         // update TMPro UI to show current order on phone
@@ -214,7 +220,10 @@ public class Job : MonoBehaviour
     {
         acceptedJobScreen.SetActive(false);
         completedJobScreen.SetActive(true);
-        AudioManager.Instance.PlaySFX("Dropoff");
+        currentMoney += pay;
+        string moneyString = currentMoney.ToString("#.##");
+        money.text = "$ " + moneyString + "";
+        AudioManager.Instance.PlaySFX("DropOff");
         yield return new WaitForSeconds(1.0f);
         // update TMPro text to default
         DefaultPhoneText();
