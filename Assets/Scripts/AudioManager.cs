@@ -54,7 +54,7 @@ public class AudioManager : MonoBehaviour
     {
         Sound sound = Array.Find(sfx, x => x.name == name);
 
-        if (sound != null)
+        if (sound != null && !sfxSource.isPlaying)
         {
             sfxSource.clip = sound.clip;
             sfxSource.Play();
