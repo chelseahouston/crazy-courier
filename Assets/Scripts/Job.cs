@@ -106,6 +106,7 @@ public class Job : MonoBehaviour
         jobAccepted = false; // job not accepted yet
 
         generatingJobScreen.SetActive(true);
+        
 
         yield return new WaitForSeconds(Random.Range(1f, 5f));
 
@@ -135,6 +136,7 @@ public class Job : MonoBehaviour
         
         jobScreen.SetActive(true);
         jobOfferOnScreen = true;
+        AudioManager.Instance.PlaySFX("NewJob");
 
         Debug.Log("JobAccepted = " + jobAccepted);
     }
@@ -156,6 +158,7 @@ public class Job : MonoBehaviour
     {
         jobAccepted = true;
         Debug.Log("Job Accepted :)");
+        AudioManager.Instance.PlaySFX("NewJob");
         jobOfferOnScreen = false;
         jobScreen.SetActive(false);
         acceptedJobScreen.SetActive(true);
@@ -211,6 +214,7 @@ public class Job : MonoBehaviour
     {
         acceptedJobScreen.SetActive(false);
         completedJobScreen.SetActive(true);
+        AudioManager.Instance.PlaySFX("Dropoff");
         yield return new WaitForSeconds(1.0f);
         // update TMPro text to default
         DefaultPhoneText();
