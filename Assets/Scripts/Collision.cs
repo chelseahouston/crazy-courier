@@ -14,12 +14,13 @@ public class Collision : MonoBehaviour
     {
         data = GameObject.Find("Data");
         job = data.GetComponent<Job>();
+        
     }
 
 
     private void OnCollisionEnter2D(Collision2D thing)
     {
-
+        AudioManager.Instance.PlaySFX("Crash");
     }
 
     private void OnTriggerEnter2D(Collider2D thing)
@@ -30,6 +31,7 @@ public class Collision : MonoBehaviour
         {
             // pickup order and set pickedup bool to true
             pickedup = true;
+            AudioManager.Instance.PlaySFX("Collect");
             Debug.Log("Picked up Order");
             // and remove waypoint from restaurant to customer house
             // set restaurantGameObject tag to default untagged
@@ -47,6 +49,7 @@ public class Collision : MonoBehaviour
         if (thing.tag == "Current Customer" && pickedup)
         {
             Debug.Log("Delivered to Customer!");
+            AudioManager.Instance.PlaySFX("Dropoff");
             // deliver order
             job.CompleteJob();
 
