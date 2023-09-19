@@ -69,20 +69,25 @@ public class AudioManager : MonoBehaviour
     public void SetMusicVolume(float volume) 
     { 
         musicSource.volume = volume;
-        PlayerPrefs.SetFloat("MusicVolume", musicSource.volume);
+        PlayerPrefs.SetFloat("MusicVolume", volume);
 
     }
 
-    public void SetSFXvolume(float volume)
+    public void SetSFXVolume(float volume)
     {
         sfxSource.volume = volume;
-        PlayerPrefs.SetFloat("SfxVolume", sfxSource.volume);
+        PlayerPrefs.SetFloat("SfxVolume", volume);
     }
 
     void LoadVolumePrefs()
     {
-        sfxSlider.value = PlayerPrefs.GetFloat("SfxVolume");
-        volumeSlider.value = PlayerPrefs.GetFloat("MusicVolume");
+        SetSFXVolume(sfxSlider.value = PlayerPrefs.GetFloat("SfxVolume"));
+        SetMusicVolume(volumeSlider.value = PlayerPrefs.GetFloat("MusicVolume"));
+    }
+
+    void OnApplicationQuit()
+    {
+        musicSource.Stop();
     }
 
 
