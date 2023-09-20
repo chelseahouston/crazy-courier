@@ -35,7 +35,9 @@ public class Collision : MonoBehaviour
             Debug.Log("Picked up Order");
             // and remove waypoint from restaurant to customer house
             // set restaurantGameObject tag to default untagged
-            thing.tag = "Untagged";
+            thing.tag = "Untagged"; 
+            thing.enabled = false;
+            
 
             job.ShowCustomerAddress();
         }
@@ -54,7 +56,9 @@ public class Collision : MonoBehaviour
             job.CompleteJob();
 
             // set customerGameObject tag to default untagged
-            thing.tag = "Untagged";
+            thing.tag = "Untagged"; 
+            thing.enabled = false;
+            
 
         }
         else

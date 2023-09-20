@@ -24,7 +24,9 @@ public class Job : MonoBehaviour
     public CustomerData customerData; // customer data script
     public bool complete; // is current job complete?
     public GameObject restaurantGameObject; // where to pick up current order
+    public GameObject restaurantLocationCircle; // restaurant circle target
     public GameObject customerHouseGameObject; // where to deliver current order
+    public GameObject customerLocationCircle; // customer circle target
     private bool jobOfferOnScreen = false; // if the potential job is shown on phone, false to start
     private bool jobAccepted = false; // if a job has been accepted
     public GameObject generatingJobScreen, jobScreen, acceptedJobScreen, declinedJobScreen, completedJobScreen; // phone screens
@@ -33,12 +35,24 @@ public class Job : MonoBehaviour
     public TextMeshProUGUI completedPayment; // pay from job completed
     public TextMeshProUGUI money; // total pay text
     private float currentMoney; // total pay so far
+    
+    
 
     // Start is called before the first frame update
     void Start()
     {
         currentMoney = 0.00f;
         money.text = "$ " + currentMoney + "";
+
+        // Set all Target Circles to inactive
+        foreach (GameObject gameObj in GameObject.FindGameObjectsWithTag("TargetCircle"))
+        {
+            if (gameObj.name == "TargetLocationCircle")
+{
+                gameObj.SetActive(false);
+            }
+        }
+
 
         generatingJobScreen.SetActive(false);
         jobScreen.SetActive(false);
@@ -178,10 +192,13 @@ public class Job : MonoBehaviour
         acceptedCustomer.enabled = false; ; // just show pickup address first
 
         // set restaurant and customer home game objects for current job
+
         restaurantGameObject = GameObject.Find(jobRestaurant);
-        restaurantGameObject.tag = "Current Restaurant";
+        restaurantLocationCircle = restaurantGameObject.transform.Find("TargetLocationCircle").gameObject;
+        restaurantLocationCircle.tag = "Current Restaurant";
         customerHouseGameObject = GameObject.Find(jobCustomer.address);
-        customerHouseGameObject.tag = "Current Customer";
+        customerLocationCircle = customerHouseGameObject.transform.Find("TargetLocationCircle").gameObject;
+        customerLocationCircle.tag = "Current Customer";
 
         Debug.Log("JobAccepted = " + jobAccepted);
     }
@@ -203,9 +220,11 @@ public class Job : MonoBehaviour
         declinedJobScreen.SetActive(true);
         Debug.Log("Job Declined :(");
         restaurantGameObject = GameObject.Find(jobRestaurant);
-        restaurantGameObject.tag = "Untagged";
+        restaurantLocationCircle = restaurantGameObject.transform.Find("TargetLocationCircle").gameObject;
+        restaurantLocationCircle.tag = "Untagged";
         customerHouseGameObject = GameObject.Find(jobCustomer.address);
-        customerHouseGameObject.tag = "Untagged";
+        customerLocationCircle = customerHouseGameObject.transform.Find("TargetLocationCircle").gameObject;
+        customerLocationCircle.tag = "Untagged";
         yield return new WaitForSeconds(1.5f);
 
         GenerateJob(); // generate new job
@@ -249,14 +268,16 @@ public class Job : MonoBehaviour
     public void OnApplicationQuit()
     {
         restaurantGameObject = GameObject.Find(jobRestaurant);
-        if (restaurantGameObject != null)
+        restaurantLocationCircle = restaurantGameObject.transform.Find("TargetLocationCircle").gameObject;
+        if (restaurantLocationCircle != null)
         {
-            restaurantGameObject.tag = "Untagged";
+            restaurantLocationCircle.tag = "TargetCircle";
         }
         customerHouseGameObject = GameObject.Find(jobCustomer.address);
-        if (customerHouseGameObject != null)
+        customerLocationCircle = customerHouseGameObject.transform.Find("TargetLocationCircle").gameObject;
+        if (customerLocationCircle != null)
         {
-            customerHouseGameObject.tag = "Untagged";
+            customerLocationCircle.tag = "TargetCircle";
         }
     }
 }
