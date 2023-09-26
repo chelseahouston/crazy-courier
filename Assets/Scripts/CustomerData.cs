@@ -15,7 +15,7 @@ public class CustomerData : MonoBehaviour
         // create list of all customers and their address
         // multiple people living in same address
         customers.Add(new Customer("Sarah Thompson", "3 Maple Street"));
-        customers.Add(new Customer("James Thompson", "2 Maple Street"));
+        customers.Add(new Customer("James Thompson", "3 Maple Street"));
         customers.Add(new Customer("Mason White", "2 Oak Drive"));
         customers.Add(new Customer("Josh White", "2 Oak Drive"));
         customers.Add(new Customer("Ava Taylor", "5 Maple Street"));
@@ -29,7 +29,7 @@ public class CustomerData : MonoBehaviour
         customers.Add(new Customer("Mei Chen", "3 Forest Way"));
         customers.Add(new Customer("Jamal Ali", "7 Pine Drive"));
         customers.Add(new Customer("Priya Gupta", "7 Pine Drive"));
-        customers.Add(new Customer("Mohammad Hassan", "9 Pine Drive\""));
+        customers.Add(new Customer("Mohammad Hassan", "9 Pine Drive"));
         customers.Add(new Customer("Julie Marsh", "11 Pine Drive"));
         customers.Add(new Customer("Bernard Marsh", "11 Pine Drive"));
         customers.Add(new Customer("Craig Jones", "12 Orange Grove"));
