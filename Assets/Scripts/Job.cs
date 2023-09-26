@@ -89,6 +89,7 @@ public class Job : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        totalJobsText.text = "Jobs Completed: " + totalJobs;
         // if the user completes the job, generate another
         if (complete)
         {
@@ -268,7 +269,7 @@ public class Job : MonoBehaviour
         money.text = "$ " + moneyString + "";
         AudioManager.Instance.PlaySFX("DropOff");
         customerLocationCircle.SetActive(false);
-        totalJobs++;
+        totalJobs = totalJobs + 1;
         yield return new WaitForSeconds(1.0f);
         // update TMPro text to default
         DefaultPhoneText();
