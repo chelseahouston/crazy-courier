@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Current Restaurant
   - Current Customer
+  - TargetCircle
   layers:
   - Default
   - TransparentFX

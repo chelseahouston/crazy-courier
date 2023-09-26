@@ -34,16 +34,12 @@ public class Collision : MonoBehaviour
             AudioManager.Instance.PlaySFX("Collect");
             Debug.Log("Picked up Order");
             // and remove waypoint from restaurant to customer house
-            // set restaurantGameObject tag to default untagged
-            thing.tag = "Untagged";
-
             job.ShowCustomerAddress();
         }
         else
         {
             // else do nothing
         }
-
 
         // if the customer house is correct and pickedup is true
         if (thing.tag == "Current Customer" && pickedup)
@@ -52,10 +48,7 @@ public class Collision : MonoBehaviour
             AudioManager.Instance.PlaySFX("Dropoff");
             // deliver order
             job.CompleteJob();
-
-            // set customerGameObject tag to default untagged
-            thing.tag = "Untagged";
-
+        
         }
         else
         {
