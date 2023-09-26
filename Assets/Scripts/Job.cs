@@ -35,8 +35,6 @@ public class Job : MonoBehaviour
     public TextMeshProUGUI completedPayment; // pay from job completed
     public TextMeshProUGUI money; // total pay text
     private float currentMoney; // total pay so far
-    
-    
 
     // Start is called before the first frame update
     void Start()
@@ -193,12 +191,10 @@ public class Job : MonoBehaviour
 
         // set restaurant and customer home game objects for current job
 
-        restaurantGameObject = GameObject.Find(jobRestaurant);
-        restaurantLocationCircle = restaurantGameObject.transform.Find("TargetLocationCircle").gameObject;
-        restaurantLocationCircle.tag = "Current Restaurant";
-        customerHouseGameObject = GameObject.Find(jobCustomer.address);
-        customerLocationCircle = customerHouseGameObject.transform.Find("TargetLocationCircle").gameObject;
-        customerLocationCircle.tag = "Current Customer";
+        restaurantGameObject = GameObject.Find(jobRestaurant); // get restaurant location
+        restaurantLocationCircle = restaurantGameObject.transform.Find("TargetLocationCircle").gameObject; // set location marker circle
+        restaurantLocationCircle.tag = "Current Restaurant"; // set circle tag as trigger
+        restaurantLocationCircle.SetActive(true); // target location set
 
         Debug.Log("JobAccepted = " + jobAccepted);
     }
@@ -209,10 +205,20 @@ public class Job : MonoBehaviour
         acceptedCustomer = acceptedCustomer.GetComponent<TextMeshProUGUI>();
         acceptedRestaurant.enabled = false; // when order picked up, dont show pickup address
         acceptedCustomer.enabled = true;  // show customer address
+
+        restaurantGameObject = GameObject.Find(jobRestaurant); // find restaurant address to get circle marker
+        restaurantLocationCircle = restaurantGameObject.transform.Find("TargetLocationCircle").gameObject; // get marker
+        restaurantLocationCircle.tag = "TargetCircle"; // reset tag
+        restaurantLocationCircle.SetActive(false); // set marker to inactive
+
+        customerHouseGameObject = GameObject.Find(jobCustomer.address); // get customer address
+        customerLocationCircle = customerHouseGameObject.transform.Find("TargetLocationCircle").gameObject; // get address location marker circle
+        customerLocationCircle.tag = "Current Customer"; // set circle tag as trigger
+        customerLocationCircle.SetActive(true); // target location set
+
     }
 
-
-
+    
     public IEnumerator DeclineJobCoroutine()
     {
         jobOfferOnScreen = false;
@@ -221,10 +227,16 @@ public class Job : MonoBehaviour
         Debug.Log("Job Declined :(");
         restaurantGameObject = GameObject.Find(jobRestaurant);
         restaurantLocationCircle = restaurantGameObject.transform.Find("TargetLocationCircle").gameObject;
-        restaurantLocationCircle.tag = "Untagged";
+        restaurantLocationCircle.tag = "TargetCircle"; // reset in case job already in progress
+        restaurantLocationCircle.SetActive(false);
+
+        // add option/screen to only allow to decline job before picking up order - otherwise driver gets free food! lol
         customerHouseGameObject = GameObject.Find(jobCustomer.address);
+        Debug.Log("Customer Location: " + jobCustomer.address);
         customerLocationCircle = customerHouseGameObject.transform.Find("TargetLocationCircle").gameObject;
-        customerLocationCircle.tag = "Untagged";
+        customerLocationCircle.tag = "TargetCircle";
+        customerLocationCircle.SetActive(false);
+
         yield return new WaitForSeconds(1.5f);
 
         GenerateJob(); // generate new job
@@ -243,6 +255,7 @@ public class Job : MonoBehaviour
         string moneyString = currentMoney.ToString("#.##");
         money.text = "$ " + moneyString + "";
         AudioManager.Instance.PlaySFX("DropOff");
+        customerLocationCircle.SetActive(false);
         yield return new WaitForSeconds(1.0f);
         // update TMPro text to default
         DefaultPhoneText();
@@ -267,17 +280,27 @@ public class Job : MonoBehaviour
 
     public void OnApplicationQuit()
     {
+        // reset tags etc...
+
         restaurantGameObject = GameObject.Find(jobRestaurant);
-        restaurantLocationCircle = restaurantGameObject.transform.Find("TargetLocationCircle").gameObject;
-        if (restaurantLocationCircle != null)
+        if (restaurantGameObject != null)
         {
-            restaurantLocationCircle.tag = "TargetCircle";
+            restaurantLocationCircle = restaurantGameObject.transform.Find("TargetLocationCircle").gameObject;
+            if (restaurantLocationCircle != null)
+            {
+                restaurantLocationCircle.tag = "TargetCircle";
+            }
         }
+
         customerHouseGameObject = GameObject.Find(jobCustomer.address);
-        customerLocationCircle = customerHouseGameObject.transform.Find("TargetLocationCircle").gameObject;
-        if (customerLocationCircle != null)
+        if (customerHouseGameObject != null)
         {
-            customerLocationCircle.tag = "TargetCircle";
+            customerLocationCircle = customerHouseGameObject.transform.Find("TargetLocationCircle").gameObject;
+            if (customerLocationCircle != null)
+            {
+                customerLocationCircle.tag = "TargetCircle";
+            }
         }
+
     }
 }
