@@ -35,12 +35,16 @@ public class Job : MonoBehaviour
     public TextMeshProUGUI completedPayment; // pay from job completed
     public TextMeshProUGUI money; // total pay text
     private float currentMoney; // total pay so far
+    public TextMeshProUGUI totalJobsText; // total jobs text
+    private int totalJobs; // total jobs completed
 
     // Start is called before the first frame update
     void Start()
     {
         currentMoney = 0.00f;
         money.text = "$ " + currentMoney + "";
+        totalJobs = 0;
+        totalJobsText.text = "Jobs Completed: " + totalJobs; 
 
         // Set all Target Circles to inactive
         foreach (GameObject gameObj in GameObject.FindGameObjectsWithTag("TargetCircle"))
@@ -175,6 +179,7 @@ public class Job : MonoBehaviour
     public void AcceptJob()
     {
         jobAccepted = true;
+        acceptedRestaurant.enabled = true;
         Debug.Log("Job Accepted :)");
         AudioManager.Instance.PlaySFX("NewJob");
         jobOfferOnScreen = false;
@@ -183,7 +188,10 @@ public class Job : MonoBehaviour
 
         // update TMPro UI to show current order on phone
         acceptedOrderNo.text += orderNo;
-        acceptedRestaurant.text += jobRestaurant;
+        Debug.Log("restaurant = " + jobRestaurant);
+        acceptedRestaurant = acceptedRestaurant.GetComponent<TextMeshProUGUI>();
+        acceptedRestaurant.text = "Pickup: <br>"+jobRestaurant;
+        restaurantDisplay.text = "Pickup: <br>" + jobRestaurant;
         acceptedCustomer.text += jobCustomer.GetName() + "<br>" + jobCustomer.GetAddress();
         acceptedPay.text += jobPay;
         completedPayment.text += jobPay;
@@ -212,6 +220,7 @@ public class Job : MonoBehaviour
         restaurantLocationCircle.SetActive(false); // set marker to inactive
 
         customerHouseGameObject = GameObject.Find(jobCustomer.address); // get customer address
+        Debug.Log("Customer Address: " +jobCustomer.address);
         customerLocationCircle = customerHouseGameObject.transform.Find("TargetLocationCircle").gameObject; // get address location marker circle
         customerLocationCircle.tag = "Current Customer"; // set circle tag as trigger
         customerLocationCircle.SetActive(true); // target location set
@@ -237,7 +246,10 @@ public class Job : MonoBehaviour
         customerLocationCircle.tag = "TargetCircle";
         customerLocationCircle.SetActive(false);
 
+        DefaultPhoneText();
+
         yield return new WaitForSeconds(1.5f);
+
 
         GenerateJob(); // generate new job
     }
@@ -256,6 +268,7 @@ public class Job : MonoBehaviour
         money.text = "$ " + moneyString + "";
         AudioManager.Instance.PlaySFX("DropOff");
         customerLocationCircle.SetActive(false);
+        totalJobs++;
         yield return new WaitForSeconds(1.0f);
         // update TMPro text to default
         DefaultPhoneText();
@@ -263,6 +276,7 @@ public class Job : MonoBehaviour
         // update jobs completed
         complete = true;
         jobAccepted = false;
+
     }
 
     public void DefaultPhoneText()
@@ -276,6 +290,7 @@ public class Job : MonoBehaviour
         acceptedRestaurant.text = "Pickup: <br>";
         acceptedCustomer.text = "Delivery: <br>";
         acceptedPay.text = "$";
+        completedPayment.text = "$";
     }
 
     public void OnApplicationQuit()
