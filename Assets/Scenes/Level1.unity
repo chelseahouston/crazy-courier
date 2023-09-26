@@ -1363,11 +1363,11 @@ GameObject:
   - component: {fileID: 110085659}
   m_Layer: 6
   m_Name: TargetLocationCircle
-  m_TagString: Untagged
+  m_TagString: TargetCircle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &110085658
 Transform:
   m_ObjectHideFlags: 0
@@ -1548,11 +1548,11 @@ GameObject:
   - component: {fileID: 129019824}
   m_Layer: 6
   m_Name: TargetLocationCircle
-  m_TagString: Untagged
+  m_TagString: TargetCircle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &129019823
 Transform:
   m_ObjectHideFlags: 0
@@ -2187,11 +2187,11 @@ GameObject:
   - component: {fileID: 187553305}
   m_Layer: 6
   m_Name: TargetLocationCircle
-  m_TagString: Untagged
+  m_TagString: TargetCircle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &187553304
 Transform:
   m_ObjectHideFlags: 0
@@ -4839,11 +4839,11 @@ GameObject:
   - component: {fileID: 324878843}
   m_Layer: 6
   m_Name: TargetLocationCircle
-  m_TagString: Untagged
+  m_TagString: TargetCircle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &324878842
 Transform:
   m_ObjectHideFlags: 0
@@ -5903,11 +5903,11 @@ GameObject:
   - component: {fileID: 370446576}
   m_Layer: 6
   m_Name: TargetLocationCircle
-  m_TagString: Untagged
+  m_TagString: TargetCircle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &370446575
 Transform:
   m_ObjectHideFlags: 0
@@ -7615,11 +7615,11 @@ GameObject:
   - component: {fileID: 507190429}
   m_Layer: 6
   m_Name: TargetLocationCircle
-  m_TagString: Untagged
+  m_TagString: TargetCircle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &507190428
 Transform:
   m_ObjectHideFlags: 0
@@ -14232,11 +14232,11 @@ GameObject:
   - component: {fileID: 976147737}
   m_Layer: 6
   m_Name: TargetLocationCircle
-  m_TagString: Untagged
+  m_TagString: TargetCircle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &976147736
 Transform:
   m_ObjectHideFlags: 0
@@ -24073,11 +24073,11 @@ GameObject:
   - component: {fileID: 1601355790}
   m_Layer: 6
   m_Name: TargetLocationCircle
-  m_TagString: Untagged
+  m_TagString: TargetCircle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1601355789
 Transform:
   m_ObjectHideFlags: 0
@@ -29468,11 +29468,11 @@ GameObject:
   - component: {fileID: 1882848999}
   m_Layer: 6
   m_Name: TargetLocationCircle
-  m_TagString: Untagged
+  m_TagString: TargetCircle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1882848998
 Transform:
   m_ObjectHideFlags: 0
@@ -30578,11 +30578,11 @@ GameObject:
   - component: {fileID: 1985795987}
   m_Layer: 6
   m_Name: TargetLocationCircle
-  m_TagString: Untagged
+  m_TagString: TargetCircle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1985795986
 Transform:
   m_ObjectHideFlags: 0
@@ -30763,11 +30763,11 @@ GameObject:
   - component: {fileID: 1994029243}
   m_Layer: 6
   m_Name: TargetLocationCircle
-  m_TagString: Untagged
+  m_TagString: TargetCircle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1994029242
 Transform:
   m_ObjectHideFlags: 0
@@ -30864,11 +30864,11 @@ GameObject:
   - component: {fileID: 1999035607}
   m_Layer: 6
   m_Name: TargetLocationCircle
-  m_TagString: Untagged
+  m_TagString: TargetCircle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1999035605
 Transform:
   m_ObjectHideFlags: 0
@@ -30965,11 +30965,11 @@ GameObject:
   - component: {fileID: 2006236506}
   m_Layer: 6
   m_Name: TargetLocationCircle
-  m_TagString: Untagged
+  m_TagString: TargetCircle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2006236505
 Transform:
   m_ObjectHideFlags: 0
@@ -31325,11 +31325,11 @@ GameObject:
   - component: {fileID: 2024130872}
   m_Layer: 6
   m_Name: TargetLocationCircle
-  m_TagString: Untagged
+  m_TagString: TargetCircle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2024130871
 Transform:
   m_ObjectHideFlags: 0
@@ -32592,11 +32592,11 @@ GameObject:
   - component: {fileID: 2093120938}
   m_Layer: 6
   m_Name: TargetLocationCircle
-  m_TagString: Untagged
+  m_TagString: TargetCircle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2093120937
 Transform:
   m_ObjectHideFlags: 0
