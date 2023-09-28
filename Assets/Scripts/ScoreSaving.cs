@@ -2,45 +2,44 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ScoreSaving : MonoBehaviour
+public class ScoreSaving
 {
     public List<int> jobScores = new List<int>();
     public List<int> moneyScores = new List<int>();
     public Job currentJob;
-    private static ScoreSaving m_instance;
-    private const int LeaderboardLength = 3;
+    public int J1, J2, J3; // top 3 jobs
+    public int M1, M2, M3; // top 3 money
 
-    public static ScoreSaving _instance
+
+    void Awake()
     {
-        get
+        if (Instance == null)
         {
-            if (m_instance == null)
-            {
-                m_instance = new GameObject("ScoreSaving").AddComponent<ScoreSaving>();
-            }
-            return m_instance;
+            Instance = this;
         }
-    }
+        else if (Instance != this)
+            Destroy(gameObject);
 
+        DontDestroyOnLoad(gameObject);
+    }
+        
     void Start()
     {
         // load playerpref daily job top 3 high scores
         // load playerpref daily money top 3 high scores
-
-        LoadJobScores();
-        LoadMoneyScores();
-
+        LoadScores();
     }
 
-    public void LoadMoneyScores(){
-
-    }
-
-    public void LoadJobScores()
+    public void LoadScores()
     {
-
+        PlayerPrefs.SetInt(J1, "JobScores" + 0);
+        PlayerPrefs.SetInt(J2, "JobScores" + 1);
+        PlayerPrefs.SetInt(J3, "JobScores" + 2);
+        PlayerPrefs.SetInt(M1, "MoneyScores" + 0);
+        PlayerPrefs.SetInt(M1, "MoneyScores" + 1);
+        PlayerPrefs.SetInt(M1, "MoneyScores" + 2);
     }
-
+    
     public void ResetScores()
     {
         jobScores.Clear();
@@ -49,110 +48,33 @@ public class ScoreSaving : MonoBehaviour
         moneyScores.AddRange(0, 0, 0);
     }
 
+    public void AddToJobScores(int score) { }
+    public void AddToMoneyScores(int score) { }
+
     public void SaveScores()
     {
-        jobScores.Add()
-    }
-
-        void Awake()
+        for (int i = 0; i < jobScores.Count; i++)
         {
-            if (m_instance == null)
-            {
-                m_instance = this;
-            }
-            else if (m_instance != this)
-                Destroy(gameObject);
-
-            DontDestroyOnLoad(gameObject);
+            PlayerPrefs.SetInt("JobScores" + i, jobScores[i]);
         }
-
-        public void SaveHighScore(string name, int score)
+        for (int i = 0; i < moneyScores.Count; i++)
         {
-            List<Scores> HighScores = new List<Scores>();
-
-            int i = 1;
-            while (i <= LeaderboardLength && PlayerPrefs.HasKey("HighScore" + i + "score"))
-            {
-                Scores temp = new Scores();
-                temp.score = PlayerPrefs.GetInt("HighScore" + i + "score");
-                temp.name = PlayerPrefs.GetString("HighScore" + i + "name");
-                HighScores.Add(temp);
-                i++;
-            }
-            if (HighScores.Count == 0)
-            {
-                Scores _temp = new Scores();
-                _temp.name = name;
-                _temp.score = score;
-                HighScores.Add(_temp);
-            }
-            else
-            {
-                for (i = 1; i <= HighScores.Count && i <= LeaderboardLength; i++)
-                {
-                    if (score > HighScores[i - 1].score)
-                    {
-                        Scores _temp = new Scores();
-                        _temp.name = name;
-                        _temp.score = score;
-                        HighScores.Insert(i - 1, _temp);
-                        break;
-                    }
-                    if (i == HighScores.Count && i < LeaderboardLength)
-                    {
-                        Scores _temp = new Scores();
-                        _temp.name = name;
-                        _temp.score = score;
-                        HighScores.Add(_temp);
-                        break;
-                    }
-                }
-            }
-
-            i = 1;
-            while (i <= LeaderboardLength && i <= HighScores.Count)
-            {
-                PlayerPrefs.SetString("HighScore" + i + "name", HighScores[i - 1].name);
-                PlayerPrefs.SetInt("HighScore" + i + "score", HighScores[i - 1].score);
-                i++;
-            }
-
-        }
-
-        public List<Scores> GetHighScore()
-        {
-            List<Scores> HighScores = new List<Scores>();
-
-            int i = 1;
-            while (i <= LeaderboardLength && PlayerPrefs.HasKey("HighScore" + i + "score"))
-            {
-                Scores temp = new Scores();
-                temp.score = PlayerPrefs.GetInt("HighScore" + i + "score");
-                temp.name = PlayerPrefs.GetString("HighScore" + i + "name");
-                HighScores.Add(temp);
-                i++;
-            }
-
-            return HighScores;
-        }
-
-        public void ClearLeaderBoard()
-        {
-            //for(int i=0;i<HighScores.
-            List<Scores> HighScores = GetHighScore();
-
-            for (int i = 1; i <= HighScores.Count; i++)
-            {
-                PlayerPrefs.DeleteKey("HighScore");
-                PlayerPrefs.DeleteKey("HighScore");
-            }
-        }
-
-        void OnApplicationQuit()
-        {
-            PlayerPrefs.Save();
+            PlayerPrefs.SetInt("MoneyScores" + i, moneyScores[i]);
         }
     }
-
-
+    
+    public List<int> GetJobScores()
+    {
+        return jobScores;
+    }
+    public List<int> GetMoneyScores()
+    {
+        return moneyScores;
+    }
+    
+    void OnApplicationQuit()
+    {
+        SaveScores();
+        PlayerPrefs.Save();
+    }
 }
