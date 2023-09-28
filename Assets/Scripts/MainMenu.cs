@@ -6,18 +6,12 @@ using UnityEngine.SceneManagement;
 public class MainMenu : MonoBehaviour
 {
 
-    [SerializeField] private GameObject startButton;
-    [SerializeField] private GameObject howToPlayButton;
-    [SerializeField] private GameObject optionsButton;
-    [SerializeField] private GameObject creditsButton;
-    [SerializeField] private GameObject exitButton;
-    [SerializeField] private GameObject optionsMenu;
+    [SerializeField] private GameObject startButton, howToPlayButton, optionsButton, creditsButton, exitButton, optionsMenu, highScores;
 
-
-    // Start is called before the first frame update
     void Start()
     {
         optionsMenu.SetActive(false);
+        highScores.SetActive(false);
     }
 
     public void StartGame()
@@ -28,6 +22,12 @@ public class MainMenu : MonoBehaviour
     public void LoadHowToPlay()
     {
         SceneManager.LoadScene("HowToPlay");
+    }
+
+    public void ShowHighScores()
+    {
+        optionsMenu.SetActive(false);
+        highScores.SetActive(true);
     }
 
     public void ShowOptions()
