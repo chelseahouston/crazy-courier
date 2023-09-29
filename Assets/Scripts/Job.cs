@@ -37,6 +37,7 @@ public class Job : MonoBehaviour
     private float currentMoney; // total pay so far
     public TextMeshProUGUI totalJobsText; // total jobs text
     private int totalJobs; // total jobs completed
+    public ScoreSaving saveScores; // for saving daily scores
 
     // Start is called before the first frame update
     void Start()
@@ -292,6 +293,11 @@ public class Job : MonoBehaviour
         acceptedCustomer.text = "Delivery: <br>";
         acceptedPay.text = "$";
         completedPayment.text = "$";
+    }
+
+    public void EndOfDay()
+    {
+        saveScores.UpdateDailyScores(currentMoney, totalJobs);
     }
 
     public void OnApplicationQuit()

@@ -1,80 +1,96 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using System.Collections.Generic;
+using TMPro;
 
-public class ScoreSaving
+public class ScoreSaving: MonoBehaviour
 {
-    public List<int> jobScores = new List<int>();
-    public List<int> moneyScores = new List<int>();
-    public Job currentJob;
-    public int J1, J2, J3; // top 3 jobs
-    public int M1, M2, M3; // top 3 money
+    public DailyScore dailyScores;
+    public TextMeshProUGUI J1, J2, J3; // top 3 job high scores
+    public TextMeshProUGUI M1, M2, M3; // top 3 money high scores
 
-
-    void Awake()
+    private void Start()
     {
-        if (Instance == null)
+        // load saved daily top scores
+        LoadDailyScores();
+    }
+
+    public void UpdateDailyScores(float newEarnings, int newJobsCompleted)
+    {
+        // update the daily earnings list
+        for (int i = 0; i < dailyScores.top3Earnings.Length; i++)
         {
-            Instance = this;
+            if (newEarnings > dailyScores.top3Earnings[i])
+            {
+                for (int j = dailyScores.top3Earnings.Length - 1; j > i; j--)
+                {
+                    dailyScores.top3Earnings[j] = dailyScores.top3Earnings[j - 1];
+                }
+                dailyScores.top3Earnings[i] = newEarnings;
+                break;
+            }
         }
-        else if (Instance != this)
-            Destroy(gameObject);
 
-        DontDestroyOnLoad(gameObject);
-    }
-        
-    void Start()
-    {
-        // load playerpref daily job top 3 high scores
-        // load playerpref daily money top 3 high scores
-        LoadScores();
-    }
-
-    public void LoadScores()
-    {
-        PlayerPrefs.SetInt(J1, "JobScores" + 0);
-        PlayerPrefs.SetInt(J2, "JobScores" + 1);
-        PlayerPrefs.SetInt(J3, "JobScores" + 2);
-        PlayerPrefs.SetInt(M1, "MoneyScores" + 0);
-        PlayerPrefs.SetInt(M1, "MoneyScores" + 1);
-        PlayerPrefs.SetInt(M1, "MoneyScores" + 2);
-    }
-    
-    public void ResetScores()
-    {
-        jobScores.Clear();
-        moneyScores.Clear();
-        jobScores.AddRange(0, 0, 0);
-        moneyScores.AddRange(0, 0, 0);
-    }
-
-    public void AddToJobScores(int score) { }
-    public void AddToMoneyScores(int score) { }
-
-    public void SaveScores()
-    {
-        for (int i = 0; i < jobScores.Count; i++)
+        // update the daily jobs completed list
+        for (int i = 0; i < dailyScores.top3JobsCompleted.Length; i++)
         {
-            PlayerPrefs.SetInt("JobScores" + i, jobScores[i]);
+            if (newJobsCompleted > dailyScores.top3JobsCompleted[i])
+            {
+                for (int j = dailyScores.top3JobsCompleted.Length - 1; j > i; j--)
+                {
+                    dailyScores.top3JobsCompleted[j] = dailyScores.top3JobsCompleted[j - 1];
+                }
+                dailyScores.top3JobsCompleted[i] = newJobsCompleted;
+                break;
+            }
         }
-        for (int i = 0; i < moneyScores.Count; i++)
+
+        // save the updated daily scores
+        SaveDailyScores();
+    }
+
+    public void ClearDailyScores()
+    {
+        // clear both daily earnings and jobs completed lists
+        dailyScores.top3Earnings = new float[3];
+        dailyScores.top3JobsCompleted = new int[3];
+
+        // Save the cleared scores
+        SaveDailyScores();
+    }
+
+    private void SaveDailyScores()
+    {
+        // convert dailyScores to JSON and save it in PlayerPrefs
+        string json = JsonUtility.ToJson(dailyScores);
+        PlayerPrefs.SetString("DailyScores", json);
+    }
+
+    private void LoadDailyScores()
+    {
+        // load the saved daily scores from PlayerPrefs
+        string json = PlayerPrefs.GetString("DailyScores");
+        if (!string.IsNullOrEmpty(json))
         {
-            PlayerPrefs.SetInt("MoneyScores" + i, moneyScores[i]);
+            dailyScores = JsonUtility.FromJson<DailyScore>(json);
+        }
+        else
+        {
+            // initialize dailyScores if it's not found in PlayerPrefs
+            dailyScores = new DailyScore();
         }
     }
-    
-    public List<int> GetJobScores()
+
+    public void UpdateUIScores()
     {
-        return jobScores;
+        // Update job completed scores
+        J1.text = dailyScores.top3JobsCompleted[0].ToString();
+        J2.text = dailyScores.top3JobsCompleted[1].ToString();
+        J3.text = dailyScores.top3JobsCompleted[2].ToString();
+
+        // Update money earnings scores (assuming you want to format them as floats)
+        M1.text = dailyScores.top3Earnings[0].ToString("F2"); // "F2" for two decimal places
+        M2.text = dailyScores.top3Earnings[1].ToString("F2");
+        M3.text = dailyScores.top3Earnings[2].ToString("F2");
     }
-    public List<int> GetMoneyScores()
-    {
-        return moneyScores;
-    }
-    
-    void OnApplicationQuit()
-    {
-        SaveScores();
-        PlayerPrefs.Save();
-    }
+
 }
