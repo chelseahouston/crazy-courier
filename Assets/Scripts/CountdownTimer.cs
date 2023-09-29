@@ -6,46 +6,40 @@ public class CountdownTimer : MonoBehaviour
 {
     public TextMeshProUGUI countdownText; // timer text on screen
     public float countdownDuration = 43200; // 12 hours in seconds
-    public float countdownSpeed = 120.0f; // countdown speed (in seconds)
+    public float countdownSpeed = 1.0f; // countdown speed (1x speed)
     public Color textColorWhite = Color.white; // usual color
     public Color textColorRed = Color.red; // when low on time change to red
-    public float colorChangeThreshold = 12000.0f; // 3 hour in seconds - when to change to red
-    public Job job; // for setting end of day jobs and money
+    public float colorChangeThreshold = 10800.0f; // 3 hours in seconds - when to change to red
+    public Job job; // for setting end-of-day jobs and money
 
     private float currentTime;
     private bool isCountingDown = true; // for EOD reached
-    private float realTimeElapsed;
+    private bool hasEnded = false; // to ensure it stays at 0:00
 
     void Start()
     {
-        // Initialize the timer
+        // Initialize the timer to 12:00 (43200 seconds)
         currentTime = countdownDuration;
-        realTimeElapsed = 0f;
     }
 
     void Update()
     {
         if (isCountingDown && currentTime > 0)
         {
-            // Increase real-time elapsed
-            realTimeElapsed += Time.deltaTime;
-
-            // Calculate the adjusted countdown time
-            float adjustedCountdownTime = countdownDuration - (realTimeElapsed / 90) * countdownDuration;
-
             // Decrease timer by countdownSpeed
-            currentTime = adjustedCountdownTime - (countdownSpeed * Time.deltaTime);
+            currentTime = Mathf.Max(currentTime - (countdownSpeed * Time.deltaTime), 0);
 
-            if (currentTime <= 0)
+            if (currentTime <= 0 && !hasEnded)
             {
-                // Timer has reached zero, handle your event here
+                // Timer has reached zero for the first time, handle your event here
                 currentTime = 0;
                 job.EndOfDay();
                 isCountingDown = false; // Stop counting down
+                hasEnded = true; // Set the flag to ensure it stays at 0:00
             }
-
-            UpdateUI();
         }
+
+        UpdateUI();
     }
 
     void UpdateUI()
@@ -65,8 +59,8 @@ public class CountdownTimer : MonoBehaviour
         // Update the UI text to display the countdown
         countdownText.text = string.Format("{0:00}:{1:00}", hours, minutes);
 
-        // Change text color to red when there's 1 hour or less remaining
-        if (currentTime <= colorChangeThreshold)
+        // Change text color to red when there's 3 hours or less remaining
+        if (currentTime <= colorChangeThreshold && !hasEnded)
         {
             countdownText.color = textColorRed;
         }
