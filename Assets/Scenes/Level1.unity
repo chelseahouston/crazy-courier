@@ -1046,9 +1046,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4adb04e429594d8419bed7f1015f5573, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  countdownText: {fileID: 52062574}
-  countdownDuration: 86400
-  countdownSpeed: 60
+  timerText: {fileID: 52062574}
+  totalTime: 60
+  warningColor: {r: 1, g: 0, b: 0, a: 1}
+  Data: {fileID: 2095283032}
   job: {fileID: 0}
 --- !u!1 &60662231
 GameObject:

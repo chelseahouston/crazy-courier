@@ -1,72 +1,69 @@
 using UnityEngine;
-using UnityEngine.UI;
 using TMPro;
 
 public class CountdownTimer : MonoBehaviour
 {
-    public TextMeshProUGUI countdownText; // timer text on screen
-    public float countdownDuration = 43200; // 12 hours in seconds
-    public float countdownSpeed = 1.0f; // countdown speed (1x speed)
-    public Color textColorWhite = Color.white; // usual color
-    public Color textColorRed = Color.red; // when low on time change to red
-    public float colorChangeThreshold = 10800.0f; // 3 hours in seconds - when to change to red
-    public Job job; // for setting end-of-day jobs and money
+    public TMP_Text timerText;
+    public float totalTime = 60.0f; // Total countdown time in real-time seconds
+    public Color warningColor = Color.red;
 
     private float currentTime;
-    private bool isCountingDown = true; // for EOD reached
-    private bool hasEnded = false; // to ensure it stays at 0:00
+    private bool isRunning = false;
+
+    public GameObject Data;
+    public Job job;
 
     void Start()
     {
-        // Initialize the timer to 12:00 (43200 seconds)
-        currentTime = countdownDuration;
+        job = Data.GetComponent<Job>();
+        // Set the initial time to 720.0f (12 minutes) to count down to 0:00 in 60 seconds.
+        currentTime = 720.0f; // 12 real-time minutes
+        UpdateTimerText();
+        StartTimer();
     }
 
     void Update()
     {
-        if (isCountingDown && currentTime > 0)
+        if (isRunning)
         {
-            // Decrease timer by countdownSpeed
-            currentTime = Mathf.Max(currentTime - (countdownSpeed * Time.deltaTime), 0);
+            currentTime -= Time.deltaTime * (720.0f / 60.0f); // Adjust the countdown speed
 
-            if (currentTime <= 0 && !hasEnded)
+            // Ensure the timer doesn't go into negative values
+            if (currentTime < 0.0f)
             {
-                // Timer has reached zero for the first time, handle your event here
-                currentTime = 0;
+                currentTime = 0.0f;
+            }
+
+            // Check if the timer has reached 3:00 (180 seconds) and change text color to red
+            if (currentTime <= 180.0f)
+            {
+                timerText.color = warningColor;
+            }
+
+            UpdateTimerText();
+
+            if (currentTime <= 0.0f)
+            {
+                currentTime = 0.0f;
+                isRunning = false;
+                // Timer has reached 0:00
                 job.EndOfDay();
-                isCountingDown = false; // Stop counting down
-                hasEnded = true; // Set the flag to ensure it stays at 0:00
             }
         }
-
-        UpdateUI();
     }
 
-    void UpdateUI()
-    {
-        // Calculate hours and minutes from currentTime
-        int totalMinutes = Mathf.FloorToInt(currentTime / 60);
-        int hours = totalMinutes / 60;
-        int minutes = totalMinutes % 60;
-
-        // Convert to 12-hour format
-        hours = hours % 12;
-        if (hours == 0)
+        void UpdateTimerText()
         {
-            hours = 12; // 12:00 AM or 12:00 PM
+            int minutes = Mathf.FloorToInt(currentTime / 60);
+            int seconds = Mathf.FloorToInt(currentTime % 60);
+
+            // Format the timer text as "mm:ss"
+            timerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
         }
 
-        // Update the UI text to display the countdown
-        countdownText.text = string.Format("{0:00}:{1:00}", hours, minutes);
-
-        // Change text color to red when there's 3 hours or less remaining
-        if (currentTime <= colorChangeThreshold && !hasEnded)
+        public void StartTimer()
         {
-            countdownText.color = textColorRed;
-        }
-        else
-        {
-            countdownText.color = textColorWhite;
+            isRunning = true;
         }
     }
-}
+

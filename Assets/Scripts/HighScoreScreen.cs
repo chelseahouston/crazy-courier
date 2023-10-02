@@ -11,7 +11,8 @@ public class HighScoreScreen : MonoBehaviour
 
     void Start()
     {
-        scores.UpdateUIScores();
+        scores.LoadDailyScores();
+
     }
 
     public void Back()

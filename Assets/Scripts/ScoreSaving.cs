@@ -10,6 +10,7 @@ public class ScoreSaving: MonoBehaviour
 
     private void Start()
     {
+        DontDestroyOnLoad(gameObject);
         // load saved daily top scores
         LoadDailyScores();
     }
@@ -56,6 +57,7 @@ public class ScoreSaving: MonoBehaviour
 
         // Save the cleared scores
         SaveDailyScores();
+        UpdateUIScores();
     }
 
     private void SaveDailyScores()
@@ -63,9 +65,10 @@ public class ScoreSaving: MonoBehaviour
         // convert dailyScores to JSON and save it in PlayerPrefs
         string json = JsonUtility.ToJson(dailyScores);
         PlayerPrefs.SetString("DailyScores", json);
+        UpdateUIScores();
     }
 
-    private void LoadDailyScores()
+    public void LoadDailyScores()
     {
         // load the saved daily scores from PlayerPrefs
         string json = PlayerPrefs.GetString("DailyScores");
@@ -78,6 +81,8 @@ public class ScoreSaving: MonoBehaviour
             // initialize dailyScores if it's not found in PlayerPrefs
             dailyScores = new DailyScore();
         }
+
+        UpdateUIScores();
     }
 
     public void UpdateUIScores()
@@ -91,6 +96,7 @@ public class ScoreSaving: MonoBehaviour
         M1.text = dailyScores.top3Earnings[0].ToString("F2"); // "F2" for two decimal places
         M2.text = dailyScores.top3Earnings[1].ToString("F2");
         M3.text = dailyScores.top3Earnings[2].ToString("F2");
+
     }
 
 }
