@@ -7,12 +7,12 @@ public class HighScoreScreen : MonoBehaviour
 
     [SerializeField] private GameObject backButton;
     [SerializeField] private GameObject highScoreScreen;
+    public ScoreSaving scores;
 
     void Start()
     {
-        // get high scores from high score player prefs string
-        // set as text on screen
-        
+        scores.LoadDailyScores();
+
     }
 
     public void Back()

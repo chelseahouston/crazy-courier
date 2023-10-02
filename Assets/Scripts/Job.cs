@@ -7,7 +7,7 @@ using TMPro;
 using UnityEngine.Windows;
 
 // @author: chelsea houston
-// @date-last-update-dd-mm-yy: 11-09-23
+// @date-last-update-dd-mm-yy: 02-10-23
 
 // generates jobs at random
 
@@ -37,6 +37,7 @@ public class Job : MonoBehaviour
     private float currentMoney; // total pay so far
     public TextMeshProUGUI totalJobsText; // total jobs text
     private int totalJobs; // total jobs completed
+    public ScoreSaving saveScores; // for saving daily scores
 
     // Start is called before the first frame update
     void Start()
@@ -44,7 +45,17 @@ public class Job : MonoBehaviour
         currentMoney = 0.00f;
         money.text = "$ " + currentMoney + "";
         totalJobs = 0;
-        totalJobsText.text = "Jobs Completed: " + totalJobs; 
+        totalJobsText.text = "Jobs Completed: " + totalJobs;
+
+        GameObject scoreSavingObject = GameObject.Find("ScoreSaving");
+        if (scoreSavingObject != null)
+        {
+            saveScores = scoreSavingObject.GetComponent<ScoreSaving>();
+        }
+        else
+        {
+            Debug.LogError("ScoreSaving GameObject not found!");
+        }
 
         // Set all Target Circles to inactive
         foreach (GameObject gameObj in GameObject.FindGameObjectsWithTag("TargetCircle"))
@@ -292,6 +303,11 @@ public class Job : MonoBehaviour
         acceptedCustomer.text = "Delivery: <br>";
         acceptedPay.text = "$";
         completedPayment.text = "$";
+    }
+
+    public void EndOfDay()
+    {
+        saveScores.UpdateDailyScores(currentMoney, totalJobs);
     }
 
     public void OnApplicationQuit()
