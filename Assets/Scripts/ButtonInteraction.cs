@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// @author: chelsea houston
+// @date-last-update-dd-mm-yy: 03-10-23
+
 public class ButtonInteraction : MonoBehaviour
 {
     public void OnHover()

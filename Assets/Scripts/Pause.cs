@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+// @author: chelsea houston
+// @date-last-update-dd-mm-yy: 03-10-23
+
 public class Pause : MonoBehaviour
 {
     public GameObject pause, options, timer;

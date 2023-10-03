@@ -1,6 +1,9 @@
 using UnityEngine;
 using TMPro;
 
+// @author: chelsea houston
+// @date-last-update-dd-mm-yy: 03-10-23
+
 public class CountdownTimer : MonoBehaviour
 {
     public TMP_Text timerText;
@@ -52,19 +55,19 @@ public class CountdownTimer : MonoBehaviour
         }
     }
 
-        void UpdateTimerText()
-        {
-            int minutes = Mathf.FloorToInt(currentTime / 60);
-            int seconds = Mathf.FloorToInt(currentTime % 60);
+    void UpdateTimerText()
+    {
+        int minutes = Mathf.FloorToInt(currentTime / 60);
+        int seconds = Mathf.FloorToInt(currentTime % 60);
 
-            // Format the timer text as "mm:ss"
-            timerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
-        }
+        // Format the timer text as "mm:ss"
+        timerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
+    }
 
-        public void StartTimer()
-        {
-            isRunning = true;
-        }
+    public void StartTimer()
+    {
+        isRunning = true;
+    }
 
     public void PauseTimer()
     {

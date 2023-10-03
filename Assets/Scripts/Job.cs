@@ -7,7 +7,7 @@ using TMPro;
 using UnityEngine.Windows;
 
 // @author: chelsea houston
-// @date-last-update-dd-mm-yy: 02-10-23
+// @date-last-update-dd-mm-yy: 03-10-23
 
 // generates jobs at random and deals with money and navigation circles for each job
 
@@ -38,6 +38,7 @@ public class Job : MonoBehaviour
     private int totalJobs; // total jobs completed
     public ScoreSaving saveScores; // for saving daily scores
     public Pause pause;
+    public EndDay endDayPanel;
 
     // Start is called before the first frame update
     void Start()
@@ -102,7 +103,7 @@ public class Job : MonoBehaviour
     {
         if (UnityEngine.Input.GetKeyDown(KeyCode.P))
         {
-            if (!pause.isPaused)
+            if (Time.timeScale == 1)
             {
                 pause.PauseGame();
             }
@@ -319,6 +320,17 @@ public class Job : MonoBehaviour
     public void EndOfDay()
     {
         saveScores.UpdateDailyScores(currentMoney, totalJobs);
+        endDayPanel.SetEodActive();
+    }
+
+    public string getTotalMoney()
+    {
+        return currentMoney.ToString("#.##");
+    }
+
+    public int getTotalJobs()
+    {
+        return totalJobs;
     }
 
     public void OnApplicationQuit()
