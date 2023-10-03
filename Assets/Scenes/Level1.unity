@@ -12612,8 +12612,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 400, y: -739.24097}
-  m_SizeDelta: {x: 1920, y: 1080}
+  m_AnchoredPosition: {x: 399.05338, y: -224.05344}
+  m_SizeDelta: {x: 915.9187, y: 539.3409}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &749493195
 MonoBehaviour:
@@ -12670,14 +12670,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.4433962, g: 0.4433962, b: 0.4433962, a: 1}
+  m_Color: {r: 0.21698111, g: 0.18729973, b: 0.18729973, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: bbdf12c99a133e84d8b50e31db59248c, type: 3}
+  m_Sprite: {fileID: 0}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -14504,7 +14504,7 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 749493195}
+        - m_Target: {fileID: 1802487587}
           m_TargetAssemblyTypeName: MainOptionsMenu, Assembly-CSharp
           m_MethodName: Back
           m_Mode: 1
@@ -14516,9 +14516,41 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-        - m_Target: {fileID: 0}
+        - m_Target: {fileID: 1802487586}
           m_TargetAssemblyTypeName: ButtonInteraction, Assembly-CSharp
           m_MethodName: OnPress
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1802487586}
+          m_TargetAssemblyTypeName: ButtonInteraction, Assembly-CSharp
+          m_MethodName: OnHover
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 1
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1802487586}
+          m_TargetAssemblyTypeName: ButtonInteraction, Assembly-CSharp
+          m_MethodName: OnMouseExit
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -21214,7 +21246,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 749493195}
+      - m_Target: {fileID: 1802487587}
         m_TargetAssemblyTypeName: MainOptionsMenu, Assembly-CSharp
         m_MethodName: ToggleMusicVolume
         m_Mode: 1
@@ -21266,7 +21298,7 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 0}
+        - m_Target: {fileID: 1802487586}
           m_TargetAssemblyTypeName: ButtonInteraction, Assembly-CSharp
           m_MethodName: OnPress
           m_Mode: 1
@@ -30637,6 +30669,7 @@ GameObject:
   - component: {fileID: 1802487581}
   - component: {fileID: 1802487583}
   - component: {fileID: 1802487582}
+  - component: {fileID: 1802487587}
   - component: {fileID: 1802487585}
   - component: {fileID: 1802487584}
   - component: {fileID: 1802487586}
@@ -30748,8 +30781,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pause: {fileID: 1802487580}
-  options: {fileID: 0}
+  options: {fileID: 749493193}
   timer: {fileID: 52062572}
+  isPaused: 0
 --- !u!114 &1802487586
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -30762,6 +30796,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b13a071e84a9814db9b527dd77b5a58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1802487587
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1802487580}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9a60afd0023d184782c6160ae00e2ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  backButton: {fileID: 885933592}
+  optionsMenu: {fileID: 749493193}
+  volumeSlider: {fileID: 1286807812}
+  sfxSlider: {fileID: 1874247295}
 --- !u!1 &1814280335
 GameObject:
   m_ObjectHideFlags: 0
@@ -31744,7 +31794,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 749493195}
+      - m_Target: {fileID: 1802487587}
         m_TargetAssemblyTypeName: MainOptionsMenu, Assembly-CSharp
         m_MethodName: ToggleSFXvolume
         m_Mode: 1
@@ -31796,7 +31846,7 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 0}
+        - m_Target: {fileID: 1802487586}
           m_TargetAssemblyTypeName: ButtonInteraction, Assembly-CSharp
           m_MethodName: OnPress
           m_Mode: 1
