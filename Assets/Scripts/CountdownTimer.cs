@@ -65,5 +65,15 @@ public class CountdownTimer : MonoBehaviour
         {
             isRunning = true;
         }
+
+    public void PauseTimer()
+    {
+        isRunning = false;
     }
+
+    public void ResumeTimer()
+    {
+        isRunning = true;
+    }
+}
 

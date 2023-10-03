@@ -9,11 +9,10 @@ using UnityEngine.Windows;
 // @author: chelsea houston
 // @date-last-update-dd-mm-yy: 02-10-23
 
-// generates jobs at random
+// generates jobs at random and deals with money and navigation circles for each job
 
 public class Job : MonoBehaviour
 {
-
     public List<string> restaurants; // list of all restaurants
     public List<Customer> customers;  // list of all customers and addresses
     public string jobRestaurant; // name of current job restaurant pickup location
@@ -38,6 +37,7 @@ public class Job : MonoBehaviour
     public TextMeshProUGUI totalJobsText; // total jobs text
     private int totalJobs; // total jobs completed
     public ScoreSaving saveScores; // for saving daily scores
+    public Pause pause;
 
     // Start is called before the first frame update
     void Start()
@@ -100,6 +100,18 @@ public class Job : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (UnityEngine.Input.GetKeyDown(KeyCode.P))
+        {
+            if (!pause.isPaused)
+            {
+                pause.PauseGame();
+            }
+            else
+            {
+                pause.Resume();
+            }
+        }
+
         totalJobsText.text = "Jobs Completed: " + totalJobs;
         // if the user completes the job, generate another
         if (complete)
@@ -107,7 +119,7 @@ public class Job : MonoBehaviour
             GenerateJob();
         }
 
-        if (jobOfferOnScreen)
+        if (jobOfferOnScreen && !pause.isPaused)
         {
             if (UnityEngine.Input.GetKeyDown(KeyCode.N))
             {
@@ -119,7 +131,7 @@ public class Job : MonoBehaviour
             }
         }
 
-        if (jobAccepted)
+        if (jobAccepted && !pause.isPaused)
         {
             if (UnityEngine.Input.GetKeyDown(KeyCode.C))
             {
@@ -239,7 +251,6 @@ public class Job : MonoBehaviour
 
     }
 
-    
     public IEnumerator DeclineJobCoroutine()
     {
         jobOfferOnScreen = false;

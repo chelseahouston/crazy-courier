@@ -88,14 +88,14 @@ public class ScoreSaving: MonoBehaviour
     public void UpdateUIScores()
     {
         // Update job completed scores
-        J1.text = dailyScores.top3JobsCompleted[0].ToString();
-        J2.text = dailyScores.top3JobsCompleted[1].ToString();
-        J3.text = dailyScores.top3JobsCompleted[2].ToString();
+        J1.text = dailyScores.top3JobsCompleted[0].ToString() + " jobs";
+        J2.text = dailyScores.top3JobsCompleted[1].ToString() + " jobs";
+        J3.text = dailyScores.top3JobsCompleted[2].ToString() + " jobs";
 
         // Update money earnings scores (assuming you want to format them as floats)
-        M1.text = dailyScores.top3Earnings[0].ToString("F2"); // "F2" for two decimal places
-        M2.text = dailyScores.top3Earnings[1].ToString("F2");
-        M3.text = dailyScores.top3Earnings[2].ToString("F2");
+        M1.text = "$" + dailyScores.top3Earnings[0].ToString("F2") + ""; // "F2" for two decimal places
+        M2.text = "$" + dailyScores.top3Earnings[1].ToString("F2") + ""; // "F2" for two decimal places
+        M3.text = "$" + dailyScores.top3Earnings[2].ToString("F2") + ""; // "F2" for two decimal places
 
     }
 
