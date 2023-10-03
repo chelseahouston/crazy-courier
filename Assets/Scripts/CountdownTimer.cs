@@ -7,7 +7,7 @@ using TMPro;
 public class CountdownTimer : MonoBehaviour
 {
     public TMP_Text timerText;
-    public float totalTime = 60.0f; // Total countdown time in real-time seconds
+    public float totalTime = 90.0f; // Total countdown time in real-time seconds
     public Color warningColor = Color.red;
 
     private float currentTime;
@@ -29,7 +29,7 @@ public class CountdownTimer : MonoBehaviour
     {
         if (isRunning)
         {
-            currentTime -= Time.deltaTime * (720.0f / 60.0f); // Adjust the countdown speed
+            currentTime -= Time.deltaTime * (720.0f / 90.0f); // Adjust the countdown speed
 
             // Ensure the timer doesn't go into negative values
             if (currentTime < 0.0f)

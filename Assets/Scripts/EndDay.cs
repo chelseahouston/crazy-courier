@@ -31,7 +31,7 @@ public class EndDay : MonoBehaviour
     public void updateUI()
     {
         jobs.text = "Jobs Completed: " + data.GetComponent<Job>().getTotalJobs();
-        money.text = "Daily Earnings: " + data.GetComponent<Job>().getTotalMoney();
+        money.text = "Daily Earnings: $" + data.GetComponent<Job>().getTotalMoney();
 
     }
 
