@@ -13,7 +13,7 @@ PlayerSettings:
   useOnDemandResources: 0
   accelerometerFrequency: 60
   companyName: PineKone Studios
-  productName: JustMonch
+  productName: Crazy Courier
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
   m_SplashScreenBackgroundColor: {r: 0.13725491, g: 0.12156863, b: 0.1254902, a: 1}
@@ -44,7 +44,7 @@ PlayerSettings:
     duration: 3
   - logo: {fileID: 21300000, guid: c95459064e4baae46967aae49dfd9137, type: 3}
     duration: 4
-  m_VirtualRealitySplashScreen: {fileID: 2800000, guid: c95459064e4baae46967aae49dfd9137, type: 3}
+  m_VirtualRealitySplashScreen: {fileID: 2800000, guid: 4119e8d97b901de4a809b78e2fac4265, type: 3}
   m_HolographicTrackingLossScreen: {fileID: 0}
   defaultScreenWidth: 1920
   defaultScreenHeight: 1080
@@ -277,7 +277,7 @@ PlayerSettings:
   - m_BuildTarget: 
     m_Icons:
     - serializedVersion: 2
-      m_Icon: {fileID: 2800000, guid: 72bae95ed39b6d14ead8107a6e462372, type: 3}
+      m_Icon: {fileID: 2800000, guid: a6becc10cd676e143a6c5b9022c711ba, type: 3}
       m_Width: 128
       m_Height: 128
       m_Kind: 0
