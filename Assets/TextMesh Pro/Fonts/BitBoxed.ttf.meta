@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: ea6b7b36c28dd8045a8450e40d9d5d4f
+guid: 1c9e8474ce509f84c8daf9dd1ed0dfbb
 TrueTypeFontImporter:
   externalObjects: {}
   serializedVersion: 4
@@ -9,7 +9,7 @@ TrueTypeFontImporter:
   characterPadding: 1
   includeFontData: 1
   fontNames:
-  - PIXEL
+  - BitBoxed
   fallbackFontReferences: []
   customCharacters: 
   fontRenderingMode: 2
