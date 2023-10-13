@@ -11,16 +11,17 @@ public class Driver : MonoBehaviour
 {
     [SerializeField] public float speed; // accelleration
     [SerializeField] public float steerSpeed; // speed of turning L or R
-    public int health;
+    public int health, maxHealth;
     public bool isDead;
     [SerializeField] private Slider healthSlider;
 
     // Start is called before the first frame update
     void Start()
     {
+        maxHealth = 30;
         speed = 15f;
         steerSpeed = 270f;
-        health = 20;
+        health = maxHealth;
         isDead = false;
     }
 
