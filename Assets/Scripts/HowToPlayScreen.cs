@@ -5,22 +5,21 @@ using UnityEngine;
 // @author: chelsea houston
 // @date-last-update-dd-mm-yy: 13-10-23
 
-public class HighScoreScreen : MonoBehaviour
+public class HowToPlayScreen : MonoBehaviour
 {
-
     [SerializeField] private GameObject backButton;
-    [SerializeField] private GameObject highScoreScreen;
-    public ScoreSaving scores;
+    [SerializeField] private GameObject howToPlayScreen;
 
+    // Start is called before the first frame update
     void Start()
     {
-        scores.LoadDailyScores();
-
+        
     }
 
+    // Update is called once per frame
     public void Back()
     {
-        highScoreScreen.SetActive(false);
+        howToPlayScreen.SetActive(false);
+       
     }
-
 }

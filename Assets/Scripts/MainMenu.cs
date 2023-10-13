@@ -3,15 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+// @author: chelsea houston
+// @date-last-update-dd-mm-yy: 13-10-23
+
 public class MainMenu : MonoBehaviour
 {
 
-    [SerializeField] private GameObject startButton, howToPlayButton, optionsButton, creditsButton, exitButton, optionsMenu, highScores;
+    [SerializeField] private GameObject startButton, howToPlayButton, optionsButton, creditsButton, exitButton, optionsMenu, highScores, howToPlayScreen;
 
     void Start()
     {
         optionsMenu.SetActive(false);
         highScores.SetActive(false);
+        howToPlayScreen.SetActive(false);
     }
 
     public void StartGame()
@@ -21,7 +25,7 @@ public class MainMenu : MonoBehaviour
 
     public void LoadHowToPlay()
     {
-        SceneManager.LoadScene("HowToPlay");
+        howToPlayScreen.SetActive(true);
     }
 
     public void ShowHighScores()
