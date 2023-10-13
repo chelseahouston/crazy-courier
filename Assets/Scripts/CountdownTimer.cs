@@ -32,7 +32,7 @@ public class CountdownTimer : MonoBehaviour
     {
         if (isRunning)
         {
-            currentTime -= Time.deltaTime * (720.0f / 90.0f); // Adjust the countdown speed
+            currentTime -= Time.deltaTime * (720.0f / 120.0f); // Adjust the countdown speed
 
             // Ensure the timer doesn't go into negative values
             if (currentTime < 0.0f)
