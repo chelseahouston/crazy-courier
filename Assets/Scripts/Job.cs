@@ -7,7 +7,7 @@ using TMPro;
 using UnityEngine.Windows;
 
 // @author: chelsea houston
-// @date-last-update-dd-mm-yy: 03-10-23
+// @date-last-update-dd-mm-yy: 13-10-23
 
 // generates jobs at random and deals with money and navigation circles for each job
 
@@ -30,15 +30,18 @@ public class Job : MonoBehaviour
     private bool jobAccepted = false; // if a job has been accepted
     public GameObject generatingJobScreen, jobScreen, acceptedJobScreen, declinedJobScreen, completedJobScreen; // phone screens
     public TextMeshProUGUI  orderNoDisplay, restaurantDisplay, customerDisplay, payDisplay; // for job found
-    public TextMeshProUGUI acceptedOrderNo, acceptedRestaurant, acceptedCustomer, acceptedPay; // for job accepted
+    public TextMeshProUGUI acceptedOrderNo, acceptedRestaurant, acceptedCustomer, acceptedPay, cancelOption; // for job accepted
+    public GameObject cancelX; // for enable/disable cancel icon
     public TextMeshProUGUI completedPayment; // pay from job completed
     public TextMeshProUGUI money; // total pay text
     private float currentMoney; // total pay so far
     public TextMeshProUGUI totalJobsText; // total jobs text
     private int totalJobs; // total jobs completed
     public ScoreSaving saveScores; // for saving daily scores
-    public Pause pause;
-    public EndDay endDayPanel;
+    public Pause pause; // pause script
+    public EndDay endDayPanel; // end day panel script
+    public CarDamaged carDestroyedPanel; // end day panel script for car too damaged
+    public Collision collision; // collision script
 
     // Start is called before the first frame update
     void Start()
@@ -132,7 +135,7 @@ public class Job : MonoBehaviour
             }
         }
 
-        if (jobAccepted && !pause.isPaused)
+        if (jobAccepted && !pause.isPaused && !collision.pickedup) // cancel job if already accepted, game isn't paused, and order not already picked up from restaurant
         {
             if (UnityEngine.Input.GetKeyDown(KeyCode.C))
             {
@@ -205,6 +208,8 @@ public class Job : MonoBehaviour
     {
         jobAccepted = true;
         acceptedRestaurant.enabled = true;
+        cancelOption.enabled = true;
+        cancelX.SetActive(true);
         Debug.Log("Job Accepted :)");
         AudioManager.Instance.PlaySFX("NewJob");
         jobOfferOnScreen = false;
@@ -238,6 +243,8 @@ public class Job : MonoBehaviour
         acceptedCustomer = acceptedCustomer.GetComponent<TextMeshProUGUI>();
         acceptedRestaurant.enabled = false; // when order picked up, dont show pickup address
         acceptedCustomer.enabled = true;  // show customer address
+        cancelOption.enabled = false; // don't show option to cancel when order picked up
+        cancelX.SetActive(false); // don't show option to cancel when order picked up
 
         restaurantGameObject = GameObject.Find(jobRestaurant); // find restaurant address to get circle marker
         restaurantLocationCircle = restaurantGameObject.transform.Find("TargetLocationCircle").gameObject; // get marker
@@ -319,13 +326,37 @@ public class Job : MonoBehaviour
 
     public void EndOfDay()
     {
+        if (totalJobs == 0)
+        {
+            currentMoney = 0.00f;
+        }
+
         saveScores.UpdateDailyScores(currentMoney, totalJobs);
         endDayPanel.SetEodActive();
     }
 
+    public void CarDestroyed()
+    {
+        if (totalJobs == 0)
+        {
+            currentMoney = 0.00f;
+        }
+
+        saveScores.UpdateDailyScores(currentMoney, totalJobs);
+        carDestroyedPanel.SetCarDestroyedActive();
+    }
+
     public string getTotalMoney()
     {
-        return currentMoney.ToString("#.##");
+        string money;
+        if (currentMoney == 0.00f)
+        { 
+            money = "0.00"; 
+        }
+        else {
+            money = currentMoney.ToString("#.##");
+        }
+        return money;
     }
 
     public int getTotalJobs()

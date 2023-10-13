@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // @author: chelsea houston
-// @date-last-update-dd-mm-yy: 03-10-23
+// @date-last-update-dd-mm-yy: 13-10-23
 
 public class Collision : MonoBehaviour
 {
     public bool pickedup = false; // order not picked up at start
     public Job job; // job script
     public GameObject data;
+    public Driver driver;
 
     private void Start()
     {
@@ -22,6 +23,7 @@ public class Collision : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D thing)
     {
         AudioManager.Instance.PlaySFX("Crash");
+        driver.DecreaseHealth();
     }
 
     private void OnTriggerEnter2D(Collider2D thing)
@@ -48,6 +50,7 @@ public class Collision : MonoBehaviour
             Debug.Log("Delivered to Customer!");
             AudioManager.Instance.PlaySFX("Dropoff");
             // deliver order
+            pickedup = false;
             job.CompleteJob();
         
         }

@@ -1,21 +1,27 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 
 // @author: chelsea houston
-// @date-last-update-dd-mm-yy: 10-09-23
+// @date-last-update-dd-mm-yy: 13-10-23
 
 public class Driver : MonoBehaviour
 {
     [SerializeField] public float speed; // accelleration
     [SerializeField] public float steerSpeed; // speed of turning L or R
+    public int health;
+    public bool isDead;
+    [SerializeField] private Slider healthSlider;
 
     // Start is called before the first frame update
     void Start()
     {
         speed = 15f;
         steerSpeed = 270f;
+        health = 20;
+        isDead = false;
     }
 
     // Update is called once per frame
@@ -26,6 +32,19 @@ public class Driver : MonoBehaviour
 
         float moveSpeed = Input.GetAxis("Vertical") * speed * Time.deltaTime; // get user F + B / W + S input
         transform.Translate(0, moveSpeed, 0);
+
+        if (health <= 0)
+        {
+            isDead = true;
+        }
+
+        healthSlider.value = health;
+    }
+
+    public void DecreaseHealth()
+    {
+        health--;
+        Debug.Log("Health = " + health);
     }
 
 }

@@ -2,7 +2,7 @@ using UnityEngine;
 using TMPro;
 
 // @author: chelsea houston
-// @date-last-update-dd-mm-yy: 03-10-23
+// @date-last-update-dd-mm-yy: 13-10-23
 
 public class CountdownTimer : MonoBehaviour
 {
@@ -15,6 +15,9 @@ public class CountdownTimer : MonoBehaviour
 
     public GameObject Data;
     public Job job;
+    public Driver driver;
+
+    public Collision collection;
 
     void Start()
     {
@@ -48,9 +51,20 @@ public class CountdownTimer : MonoBehaviour
             if (currentTime <= 0.0f)
             {
                 currentTime = 0.0f;
-                isRunning = false;
+                
                 // Timer has reached 0:00
-                job.EndOfDay();
+                if (!collection.pickedup) // if order has been collected dont end until delivered to customer!
+                {
+                    isRunning = false;
+                    job.EndOfDay();
+                }
+                
+            }
+
+            if (driver.isDead)
+            {
+                isRunning = false;
+                job.CarDestroyed();
             }
         }
     }
