@@ -7,6 +7,7 @@ TagManager:
   - Current Restaurant
   - Current Customer
   - TargetCircle
+  - Lights
   layers:
   - Default
   - TransparentFX
@@ -43,4 +44,10 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Lamp
+    uniqueID: 534106525
+    locked: 0
+  - name: trees
+    uniqueID: 3631139821
     locked: 0
