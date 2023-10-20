@@ -1,3 +1,6 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
@@ -19,11 +22,54 @@ public class CountdownTimer : MonoBehaviour
 
     public Collision collection;
 
+    public GameObject globalLightObject;
+    public UnityEngine.Rendering.Universal.Light2D globalLight;
+    public float maxIntensity;
+    public float minIntensity;
+    public float elapsedTime;
+
+    public List<GameObject> carLights;
+    public List<GameObject> restaurantLights;
+    public List<GameObject> homeLights;
+    public List<GameObject> streetLights;
+
     void Start()
     {
         job = Data.GetComponent<Job>();
-        // Set the initial time to 720.0f (12 minutes) to count down to 0:00 in 60 seconds.
+        // Set the initial time to 720.0f (12 minutes) to count down to 0:00 in 90 seconds.
         currentTime = 720.0f; // 12 real-time minutes
+
+        elapsedTime = 0.0f;
+        maxIntensity = 1.0f;
+        minIntensity = 0.4f;
+        globalLight = globalLightObject.GetComponent<UnityEngine.Rendering.Universal.Light2D>();
+        globalLight.intensity = maxIntensity;
+
+        foreach (GameObject gameObj in GameObject.FindGameObjectsWithTag("Lights"))
+        {
+            if (gameObj.name == "Car Light")
+            {
+                carLights.Add(gameObj);
+                gameObj.SetActive(false);
+            }
+            if (gameObj.name == "Light 2D")
+            {
+                streetLights.Add(gameObj);
+                gameObj.SetActive(false);
+            }
+            if (gameObj.name == "Restaurant Light")
+            {
+                restaurantLights.Add(gameObj);
+                gameObj.SetActive(false);
+            }
+            if (gameObj.name == "House Light")
+            {
+                homeLights.Add(gameObj);
+                gameObj.SetActive(false);
+            }
+        }
+
+
         UpdateTimerText();
         StartTimer();
     }
@@ -33,12 +79,6 @@ public class CountdownTimer : MonoBehaviour
         if (isRunning)
         {
             currentTime -= Time.deltaTime * (720.0f / 120.0f); // Adjust the countdown speed
-
-            // Ensure the timer doesn't go into negative values
-            if (currentTime < 0.0f)
-            {
-                currentTime = 0.0f;
-            }
 
             // Check if the timer has reached 3:00 (180 seconds) and change text color to red
             if (currentTime <= 180.0f)
@@ -50,15 +90,19 @@ public class CountdownTimer : MonoBehaviour
 
             if (currentTime <= 0.0f)
             {
-                currentTime = 0.0f;
-                
                 // Timer has reached 0:00
-                if (!collection.pickedup) // if order has been collected dont end until delivered to customer!
+                if (!collection.pickedup) // if order has been collected don't end until delivered to the customer!
                 {
                     isRunning = false;
                     job.EndOfDay();
                 }
-                
+            }
+
+            // Ensure the timer shows overtime if there is still an order to be delivered
+            if (currentTime < 0.0f)
+            {
+                timerText.text = "OVERTIME";
+                currentTime = 0.0f;
             }
 
             if (driver.isDead)
@@ -66,6 +110,46 @@ public class CountdownTimer : MonoBehaviour
                 isRunning = false;
                 job.CarDestroyed();
             }
+
+            // Interpolate the light intensity over time
+            if (globalLight.intensity > minIntensity)
+            {
+                float currentIntensity = Mathf.Lerp(maxIntensity, minIntensity, elapsedTime / 120);
+                globalLight.intensity = currentIntensity;
+
+                elapsedTime += Time.deltaTime;
+
+            }
+
+            // turn on street, car, house, and restaurant light when dark enough
+            if (globalLight.intensity < 0.75f)
+            {
+                foreach (GameObject gameObj in carLights)
+                {
+                    gameObj.SetActive(true);
+                }
+                StartCoroutine(ActivateLightsOverTime(0.03f));
+            }
+
+        }
+    }
+
+    IEnumerator ActivateLightsOverTime(float delayBetweenActivations)
+    {
+        foreach (GameObject gameObj in homeLights)
+        {
+            gameObj.SetActive(true);
+            yield return new WaitForSeconds(delayBetweenActivations); 
+        }
+        foreach (GameObject gameObj in restaurantLights)
+        {
+            gameObj.SetActive(true);
+            yield return new WaitForSeconds(delayBetweenActivations);
+        }
+        foreach (GameObject gameObj in streetLights)
+        {
+            gameObj.SetActive(true);
+            yield return new WaitForSeconds(delayBetweenActivations);
         }
     }
 
@@ -92,5 +176,6 @@ public class CountdownTimer : MonoBehaviour
     {
         isRunning = true;
     }
+
 }
 
