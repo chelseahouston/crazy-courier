@@ -5,13 +5,22 @@ using System;
 using UnityEngine.Audio;
 using UnityEngine.UI;
 
+// @author: chelsea houston
+// @date-last-update-dd-mm-yy: 20-10-23
+
 public class AudioManager : MonoBehaviour
 {
     public Sound[] music, sfx;
     public AudioSource musicSource, sfxSource;
-    [SerializeField] private Slider volumeSlider;
-    [SerializeField] private Slider sfxSlider;
+    public Slider volumeSlider;
+    public Slider sfxSlider;
     public static AudioManager Instance;
+
+    public AudioSource getMusicSource
+    { get { return musicSource; } }
+
+    public AudioSource getSfxSource
+    { get { return sfxSource; } }
 
     void Awake()
     {
@@ -24,7 +33,6 @@ public class AudioManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-
     }
 
     void Start()
@@ -66,24 +74,34 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    public void SetMusicVolume(float volume) 
-    { 
-        musicSource.volume = volume;
+    public void SetMusicVolume(float volume)
+    {
+        AudioManager.Instance.getMusicSource.volume = volume;
         PlayerPrefs.SetFloat("MusicVolume", volume);
-
     }
 
     public void SetSFXVolume(float volume)
     {
-        sfxSource.volume = volume;
+        AudioManager.Instance.getSfxSource.volume = volume;
         PlayerPrefs.SetFloat("SfxVolume", volume);
     }
 
-    void LoadVolumePrefs()
+
+    public void LoadVolumePrefs()
     {
-        SetSFXVolume(sfxSlider.value = PlayerPrefs.GetFloat("SfxVolume"));
-        SetMusicVolume(volumeSlider.value = PlayerPrefs.GetFloat("MusicVolume"));
+        // Load the PlayerPrefs values
+        float savedSfxVolume = PlayerPrefs.GetFloat("SfxVolume");
+        float savedMusicVolume = PlayerPrefs.GetFloat("MusicVolume");
+
+        // Update the sliders with the loaded values
+        sfxSlider.value = savedSfxVolume;
+        volumeSlider.value = savedMusicVolume;
+
+        // Set the audio volumes with the loaded values
+        SetSFXVolume(savedSfxVolume);
+        SetMusicVolume(savedMusicVolume);
     }
+
 
     void OnApplicationQuit()
     {

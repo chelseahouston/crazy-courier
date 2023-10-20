@@ -32487,6 +32487,7 @@ GameObject:
   - component: {fileID: 749493197}
   - component: {fileID: 749493196}
   - component: {fileID: 749493195}
+  - component: {fileID: 749493199}
   m_Layer: 5
   m_Name: OptionsPanel
   m_TagString: Untagged
@@ -32597,6 +32598,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 749493193}
   m_CullTransparentMesh: 1
+--- !u!114 &749493199
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 749493193}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9317b2bd6ca4eaa4cab764b9d5374598, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pauseVolumeSlider: {fileID: 1286807812}
+  pauseSfxSlider: {fileID: 1874247295}
+  musicSource: {fileID: 0}
+  sfxSource: {fileID: 0}
 --- !u!1 &751345232
 GameObject:
   m_ObjectHideFlags: 0
@@ -52611,7 +52628,7 @@ GameObject:
   - component: {fileID: 1286807812}
   - component: {fileID: 1286807814}
   m_Layer: 5
-  m_Name: MusicSlider
+  m_Name: PauseMusicSlider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -52668,8 +52685,8 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1802487587}
-        m_TargetAssemblyTypeName: MainOptionsMenu, Assembly-CSharp
+      - m_Target: {fileID: 749493199}
+        m_TargetAssemblyTypeName: PauseAudioManager, Assembly-CSharp
         m_MethodName: ToggleMusicVolume
         m_Mode: 1
         m_Arguments:
@@ -127557,7 +127574,7 @@ GameObject:
   - component: {fileID: 1874247295}
   - component: {fileID: 1874247297}
   m_Layer: 5
-  m_Name: SfxSlider
+  m_Name: PauseSfxSlider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -127614,8 +127631,8 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1802487587}
-        m_TargetAssemblyTypeName: MainOptionsMenu, Assembly-CSharp
+      - m_Target: {fileID: 749493199}
+        m_TargetAssemblyTypeName: PauseAudioManager, Assembly-CSharp
         m_MethodName: ToggleSFXvolume
         m_Mode: 1
         m_Arguments:

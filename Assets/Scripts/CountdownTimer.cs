@@ -5,7 +5,7 @@ using UnityEngine;
 using TMPro;
 
 // @author: chelsea houston
-// @date-last-update-dd-mm-yy: 13-10-23
+// @date-last-update-dd-mm-yy: 20-10-23
 
 public class CountdownTimer : MonoBehaviour
 {
