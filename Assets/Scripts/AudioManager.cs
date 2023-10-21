@@ -16,6 +16,8 @@ public class AudioManager : MonoBehaviour
     public Slider sfxSlider;
     public static AudioManager Instance;
 
+    public static float savedMusicVolume, savedSfxVolume;
+
     public AudioSource getMusicSource
     { get { return musicSource; } }
 
@@ -33,12 +35,6 @@ public class AudioManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-    }
-
-    void Start()
-    {
-        LoadVolumePrefs();
-        PlayMusic("MainMusic");
     }
 
     public void PlayMusic(string name)
@@ -78,28 +74,24 @@ public class AudioManager : MonoBehaviour
     {
         AudioManager.Instance.getMusicSource.volume = volume;
         PlayerPrefs.SetFloat("MusicVolume", volume);
+        savedMusicVolume = PlayerPrefs.GetFloat("MusicVolume");
+        LoadVolumePrefs();
     }
 
     public void SetSFXVolume(float volume)
     {
         AudioManager.Instance.getSfxSource.volume = volume;
         PlayerPrefs.SetFloat("SfxVolume", volume);
+        savedSfxVolume = PlayerPrefs.GetFloat("SfxVolume");
+        LoadVolumePrefs();
     }
 
 
     public void LoadVolumePrefs()
     {
-        // Load the PlayerPrefs values
-        float savedSfxVolume = PlayerPrefs.GetFloat("SfxVolume");
-        float savedMusicVolume = PlayerPrefs.GetFloat("MusicVolume");
-
         // Update the sliders with the loaded values
         sfxSlider.value = savedSfxVolume;
         volumeSlider.value = savedMusicVolume;
-
-        // Set the audio volumes with the loaded values
-        SetSFXVolume(savedSfxVolume);
-        SetMusicVolume(savedMusicVolume);
     }
 
 

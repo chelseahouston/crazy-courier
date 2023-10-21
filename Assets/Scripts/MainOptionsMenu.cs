@@ -22,6 +22,7 @@ public class MainOptionsMenu : MonoBehaviour
         optionsMenu.SetActive(false);
         audioManager = AudioManager.Instance;
         audioManager.LoadVolumePrefs();
+
     }
 
     public void Back()

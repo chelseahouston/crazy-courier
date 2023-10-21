@@ -2642,17 +2642,29 @@ MonoBehaviour:
   music:
   - name: MainMusic
     clip: {fileID: 8300000, guid: cd4160ab2d9906147904d5e54a478af5, type: 3}
+    volume: 0
+    source: {fileID: 0}
   sfx:
   - name: Crash
     clip: {fileID: 8300000, guid: da2b0538a4c64294cacfb96990b8247e, type: 3}
+    volume: 0
+    source: {fileID: 0}
   - name: Collect
     clip: {fileID: 8300000, guid: 8204279ca6e03e04ba604b76a77de120, type: 3}
+    volume: 0
+    source: {fileID: 0}
   - name: DropOff
     clip: {fileID: 8300000, guid: bc44af01cd637874da609ce90fe7adf6, type: 3}
+    volume: 0
+    source: {fileID: 0}
   - name: Car
     clip: {fileID: 8300000, guid: 4f3fd0f596abb644d8415e606a0da5df, type: 3}
+    volume: 0
+    source: {fileID: 0}
   - name: NewJob
     clip: {fileID: 8300000, guid: d2894ec172c7f30419ec49d9d882da04, type: 3}
+    volume: 0
+    source: {fileID: 0}
   musicSource: {fileID: 2060108659}
   sfxSource: {fileID: 2055760371}
   volumeSlider: {fileID: 237264979}
