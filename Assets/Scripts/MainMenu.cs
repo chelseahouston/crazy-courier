@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 // @author: chelsea houston
-// @date-last-update-dd-mm-yy: 13-10-23
+// @date-last-update-dd-mm-yy: 23-10-23
 
 public class MainMenu : MonoBehaviour
 {
@@ -16,6 +16,7 @@ public class MainMenu : MonoBehaviour
         optionsMenu.SetActive(false);
         highScores.SetActive(false);
         howToPlayScreen.SetActive(false);
+        AudioManager.Instance.PlayMusic("MainMusic");
     }
 
     public void StartGame()

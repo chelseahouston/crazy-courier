@@ -12264,7 +12264,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1802487587}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: MainOptionsMenu, Assembly-CSharp
         m_MethodName: ToggleSFXvolume
         m_Mode: 1
@@ -38367,7 +38367,7 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 1802487587}
+        - m_Target: {fileID: 749493195}
           m_TargetAssemblyTypeName: MainOptionsMenu, Assembly-CSharp
           m_MethodName: Back
           m_Mode: 1
@@ -52611,7 +52611,7 @@ GameObject:
   - component: {fileID: 1286807812}
   - component: {fileID: 1286807814}
   m_Layer: 5
-  m_Name: MusicSlider
+  m_Name: PauseMusicSlider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -52668,7 +52668,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1802487587}
+      - m_Target: {fileID: 749493195}
         m_TargetAssemblyTypeName: MainOptionsMenu, Assembly-CSharp
         m_MethodName: ToggleMusicVolume
         m_Mode: 1
@@ -76190,7 +76190,6 @@ GameObject:
   - component: {fileID: 1802487581}
   - component: {fileID: 1802487583}
   - component: {fileID: 1802487582}
-  - component: {fileID: 1802487587}
   - component: {fileID: 1802487585}
   - component: {fileID: 1802487584}
   - component: {fileID: 1802487586}
@@ -76317,22 +76316,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b13a071e84a9814db9b527dd77b5a58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1802487587
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1802487580}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e9a60afd0023d184782c6160ae00e2ed, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  backButton: {fileID: 885933592}
-  optionsMenu: {fileID: 749493193}
-  volumeSlider: {fileID: 1286807812}
-  sfxSlider: {fileID: 1874247295}
 --- !u!1 &1803066675
 GameObject:
   m_ObjectHideFlags: 0
@@ -127557,7 +127540,7 @@ GameObject:
   - component: {fileID: 1874247295}
   - component: {fileID: 1874247297}
   m_Layer: 5
-  m_Name: SfxSlider
+  m_Name: PauseSfxSlider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -127614,8 +127597,8 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1802487587}
-        m_TargetAssemblyTypeName: MainOptionsMenu, Assembly-CSharp
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: PauseAudioManager, Assembly-CSharp
         m_MethodName: ToggleSFXvolume
         m_Mode: 1
         m_Arguments:
@@ -127666,9 +127649,9 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 1802487586}
-          m_TargetAssemblyTypeName: ButtonInteraction, Assembly-CSharp
-          m_MethodName: OnPress
+        - m_Target: {fileID: 749493195}
+          m_TargetAssemblyTypeName: MainOptionsMenu, Assembly-CSharp
+          m_MethodName: ToggleSFXVolume
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
