@@ -67,8 +67,44 @@ public class Driver : MonoBehaviour
     IEnumerator SlowerCoroutine()
     {
         speed = speed / 2;
-        yield return new WaitForSeconds(10);
+        yield return new WaitForSeconds(8);
         speed = speed * 2;
     }
+
+    // when collected boost :D
+    public void Boost()
+    {
+        StartCoroutine(BoostCoroutine());
+    }
+
+    IEnumerator BoostCoroutine()
+    {
+        speed = speed * 2;
+        yield return new WaitForSeconds(2);
+        speed = speed / 2;
+    }
+
+    // when collected boost :D
+    public void Drink()
+    {
+        StartCoroutine(BeerCoroutine());
+    }
+
+    IEnumerator BeerCoroutine()
+    {
+        // original values
+        float originalSteerSpeed = steerSpeed;
+        float originalSpeed = speed;
+
+        // invert the controls for 8 secs
+        steerSpeed = -originalSteerSpeed;
+        speed = -originalSpeed;
+        yield return new WaitForSeconds(8);
+
+        // restore the original values
+        steerSpeed = originalSteerSpeed;
+        speed = originalSpeed;
+    }
+
 
 }

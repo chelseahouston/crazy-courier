@@ -12,6 +12,8 @@ TagManager:
   - StreetItems
   - Trees
   - SlowDown
+  - Boost
+  - Beer
   layers:
   - Default
   - TransparentFX

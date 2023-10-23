@@ -12,7 +12,7 @@ public class SlowDown : MonoBehaviour
     public int duration; // duration to wait before making a slowdown object active
     public int location; // position in list for slowdown location
     public bool counting; // if counting down dont change duration or spawn slowdown icon
-    public int currentIndex; // current index of health obj
+    public int currentIndex; // current index of obj
 
     void Start()
     {
@@ -53,7 +53,6 @@ public class SlowDown : MonoBehaviour
     }
 
     // coroutine for spawning slowdown throughout the game
-    // coroutine for spawning health throughout the game
     IEnumerator SpawnSlowDown()
     {
         int time = GetDuration();
