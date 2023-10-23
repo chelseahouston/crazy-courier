@@ -99,7 +99,7 @@ public class CountdownTimer : MonoBehaviour
                 }
                 else
                 {
-                    isRunning = false;
+                    
                     timerText.text = "OVERTIME";
                     currentTime = 0.0f;
                 }
@@ -119,6 +119,12 @@ public class CountdownTimer : MonoBehaviour
 
                 elapsedTime += Time.deltaTime;
 
+            }
+
+            if (!isRunning)
+            {
+                currentTime = 0.0f;
+                timerText.text = "00:00";
             }
 
             // turn on street, car, house, and restaurant light when dark enough
