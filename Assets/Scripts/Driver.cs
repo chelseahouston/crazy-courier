@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+using TMPro;
 
 // @author: chelsea houston
-// @date-last-update-dd-mm-yy: 13-10-23
+// @date-last-update-dd-mm-yy: 23-10-23
 
 public class Driver : MonoBehaviour
 {
@@ -15,9 +15,9 @@ public class Driver : MonoBehaviour
     public int health, maxHealth;
     public bool isDead;
     [SerializeField] private Slider healthSlider;
+    public TMP_Text powerUI;
 
     private Coroutine activePowerUp; // store the active power-up coroutine
-
 
     // Start is called before the first frame update
     void Start()
@@ -30,6 +30,7 @@ public class Driver : MonoBehaviour
         steerSpeed = 270f;
         health = maxHealth;
         isDead = false;
+        powerUI.text = "";
     }
 
     // Update is called once per frame
@@ -58,11 +59,27 @@ public class Driver : MonoBehaviour
     // when collecting health powerup
     public void IncreaseHealth()
     {
+        if (activePowerUp != null)
+        {
+            // Cancel the previous power-up
+            StopCoroutine(activePowerUp);
+        }
+        activePowerUp = StartCoroutine(AddHealthCoroutine());
+    }
+
+    IEnumerator AddHealthCoroutine() {
         health = health + 5;
         if (health > maxHealth)
         {
             health = maxHealth;
         }
+        powerUI.color = Color.green;
+        powerUI.text = "+Health";
+
+        yield return new WaitForSeconds(1.5f);
+
+        powerUI.text = "";
+
     }
 
     // when collected slowdown powerdown :(
@@ -79,7 +96,12 @@ public class Driver : MonoBehaviour
     IEnumerator SlowerCoroutine()
     {
         speed = slowSpeed;
+        powerUI.color = Color.red;
+        powerUI.text = "Slower Speed";
+
         yield return new WaitForSeconds(8);
+
+        powerUI.text = "";
         speed = regularSpeed;
     }
 
@@ -97,7 +119,13 @@ public class Driver : MonoBehaviour
     IEnumerator BoostCoroutine()
     {
         speed = boostSpeed;
+
+        powerUI.color = Color.blue;
+        powerUI.text = "BOOOOOOST!";
+
         yield return new WaitForSeconds(2);
+
+        powerUI.text = "";
         speed = regularSpeed;
     }
 
@@ -121,11 +149,16 @@ public class Driver : MonoBehaviour
         // invert the controls for 8 secs
         steerSpeed = -originalSteerSpeed;
         speed = -originalSpeed;
+
+        powerUI.color = new Color(1.0f, 0.5f, 0.0f, 1.0f);
+        powerUI.text = "Drunnkkedd... hiccup!";
+
         yield return new WaitForSeconds(8);
 
         // restore the original values
         steerSpeed = originalSteerSpeed;
         speed = originalSpeed;
+        powerUI.text = "";
     }
 
 
