@@ -16,6 +16,12 @@ public class MainMenu : MonoBehaviour
         optionsMenu.SetActive(false);
         highScores.SetActive(false);
         howToPlayScreen.SetActive(false);
+<<<<<<< Updated upstream
+=======
+        howToPlayScreen2.SetActive(false);
+        howToPlayScreen3.SetActive(false);
+        
+>>>>>>> Stashed changes
     }
 
     public void StartGame()
