@@ -13,6 +13,8 @@ public class Collision : MonoBehaviour
     public Driver driver;
     public Health health;
     public SlowDown slowdown;
+    public Boost boost;
+    public Beer beer;
 
     private void Start()
     {
@@ -65,10 +67,29 @@ public class Collision : MonoBehaviour
         // if the driver collects a slowdown powerdown :(
         if (thing.tag == "SlowDown")
         {
-            Debug.Log("Oh No, less speed for 10 seconds!");
+            Debug.Log("Oh No, less speed for 8 seconds!");
             driver.SlowDown();
             AudioManager.Instance.PlaySFX("Collect");
             slowdown.SlowDownCollected();
+        }
+
+        // if the driver collects a boost! :D
+        if (thing.tag == "Boost")
+        {
+            Debug.Log("BOOOOOOOST");
+            driver.Boost();
+            AudioManager.Instance.PlaySFX("Collect");
+            boost.Collected();
+        }
+
+
+        // if the driver collects a beer D:
+        if (thing.tag == "Beer")
+        {
+            Debug.Log("hic-cup!");
+            driver.Drink();
+            AudioManager.Instance.PlaySFX("Collect");
+            beer.Collected();
         }
 
     }
