@@ -1,15 +1,12 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-// @author: chelsea houston
-// @date-last-update-dd-mm-yy: 23-10-23
-
 public class AudioManager : MonoBehaviour
 {
     public static AudioManager Instance;
 
     public AudioSource musicSource;
-    public AudioSource[] sfxSources;
+    public List<AudioSource> sfxSources; // Use a List of AudioSources for SFX
 
     public List<AudioClip> musicClips; // List of available music clips
     public List<AudioClip> sfxClips;   // List of available SFX clips
@@ -50,6 +47,14 @@ public class AudioManager : MonoBehaviour
         // Load volume prefs
         musicVolume = PlayerPrefs.GetFloat(MusicVolumeKey, 1.0f);
         sfxVolume = PlayerPrefs.GetFloat(SFXVolumeKey, 1.0f);
+
+        // Initialize SFX AudioSources
+        sfxSources = new List<AudioSource>();
+        for (int i = 0; i < sfxClips.Count; i++)
+        {
+            var source = gameObject.AddComponent<AudioSource>();
+            sfxSources.Add(source);
+        }
     }
 
     public void PlayMusic(string musicClipName)
