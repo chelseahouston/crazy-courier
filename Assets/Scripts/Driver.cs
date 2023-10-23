@@ -48,4 +48,13 @@ public class Driver : MonoBehaviour
         Debug.Log("Health = " + health);
     }
 
+    public void IncreaseHealth()
+    {
+        health = health + 5;
+        if (health > maxHealth)
+        {
+            health = maxHealth;
+        }
+    }
+
 }
