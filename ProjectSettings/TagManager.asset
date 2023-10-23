@@ -63,3 +63,6 @@ TagManager:
   - name: Trees
     uniqueID: 3631139821
     locked: 0
+  - name: TargetCircles
+    uniqueID: 3324610111
+    locked: 0

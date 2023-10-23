@@ -5,9 +5,6 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
 
-// @author: chelsea houston
-// @date-last-update-dd-mm-yy: 13-10-23
-
 public class Credits : MonoBehaviour
 {
     public Animator animator;
@@ -16,10 +13,17 @@ public class Credits : MonoBehaviour
 
     void Start()
     {
+        ResetAnims();
+        StartCoroutine(Animate());
+    }
+
+    public void ResetAnims()
+    {
+        Time.timeScale = 1;
         returnText.gameObject.SetActive(false);
         textActive = false;
-
-        StartCoroutine(Animate());
+        animationEnded = false;
+        
     }
 
     void Update()
@@ -31,6 +35,7 @@ public class Credits : MonoBehaviour
 
         if (textActive && Input.anyKeyDown)
         {
+            ResetAnims();
             SceneManager.LoadScene("MainMenu");
         }
     }
@@ -38,25 +43,29 @@ public class Credits : MonoBehaviour
     public void ShowReturnText()
     {
         returnText.gameObject.SetActive(true);
-        textActive = true; 
+        textActive = true;
     }
 
     public void AnimationEnded()
     {
         animationEnded = true;
+        Debug.Log("Animation Ended");
     }
 
     IEnumerator Animate()
     {
         if (animator != null)
         {
-            animator.Play("credits");
-            animationEnded = false;
+            animator.Play("credits", -1, 0.0f);
         }
+        else
+        {
+            Debug.Log("Can't find animator!");
+        }
+
+        Debug.Log("Animation starting");
         yield return new WaitForSeconds(4);
 
         AnimationEnded();
     }
-
-
 }

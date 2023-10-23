@@ -18,6 +18,7 @@ public class MainMenu : MonoBehaviour
         howToPlayScreen.SetActive(false);
         howToPlayScreen2.SetActive(false);
         howToPlayScreen3.SetActive(false);
+
     }
 
     public void StartGame()
