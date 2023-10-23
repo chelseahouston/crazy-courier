@@ -99,6 +99,7 @@ public class CountdownTimer : MonoBehaviour
                 }
                 else
                 {
+                    isRunning = false;
                     timerText.text = "OVERTIME";
                     currentTime = 0.0f;
                 }
