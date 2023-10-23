@@ -57,6 +57,11 @@ public class AudioManager : MonoBehaviour
         }
     }
 
+    void Start()
+    {
+        PlayMusic("MainMusic");
+    }
+
     public void PlayMusic(string musicClipName)
     {
         if (musicClipDict.ContainsKey(musicClipName))

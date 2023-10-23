@@ -16,7 +16,6 @@ public class MainMenu : MonoBehaviour
         optionsMenu.SetActive(false);
         highScores.SetActive(false);
         howToPlayScreen.SetActive(false);
-        AudioManager.Instance.PlayMusic("MainMusic");
     }
 
     public void StartGame()
