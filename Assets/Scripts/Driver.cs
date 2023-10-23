@@ -48,6 +48,7 @@ public class Driver : MonoBehaviour
         Debug.Log("Health = " + health);
     }
 
+    // when collecting health powerup
     public void IncreaseHealth()
     {
         health = health + 5;
@@ -55,6 +56,19 @@ public class Driver : MonoBehaviour
         {
             health = maxHealth;
         }
+    }
+    
+    // when collected slowdown powerdown :(
+    public void SlowDown()
+    {
+        StartCoroutine(SlowerCoroutine());
+    }
+
+    IEnumerator SlowerCoroutine()
+    {
+        speed = speed / 2;
+        yield return new WaitForSeconds(10);
+        speed = speed * 2;
     }
 
 }

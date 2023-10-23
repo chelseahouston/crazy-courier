@@ -61,6 +61,13 @@ public class Collision : MonoBehaviour
             health.HealthCollected();
         }
 
+        // if the driver collects a slowdown powerdown :(
+        if (thing.tag == "SlowDown")
+        {
+            Debug.Log("Oh No, less speed for 10 seconds!");
+            driver.SlowDown();
+        }
+
     }
 
 
