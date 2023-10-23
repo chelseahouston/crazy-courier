@@ -94,15 +94,14 @@ public class CountdownTimer : MonoBehaviour
                 if (!collection.pickedup) // if order has been collected don't end until delivered to the customer!
                 {
                     isRunning = false;
+                    currentTime = 0.0f;
                     job.EndOfDay();
                 }
-            }
-
-            // Ensure the timer shows overtime if there is still an order to be delivered
-            if (currentTime < 0.0f)
-            {
-                timerText.text = "OVERTIME";
-                currentTime = 0.0f;
+                else
+                {
+                    timerText.text = "OVERTIME";
+                    currentTime = 0.0f;
+                }
             }
 
             if (driver.isDead)

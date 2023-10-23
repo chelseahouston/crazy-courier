@@ -9,12 +9,15 @@ using UnityEngine.UI;
 
 public class Driver : MonoBehaviour
 {
-    [SerializeField] public float speed; // accelleration
+    [SerializeField] public float speed; // acceleration
     [SerializeField] public float steerSpeed; // speed of turning L or R
     public float slowSpeed, regularSpeed, boostSpeed; // power up/down speeds
     public int health, maxHealth;
     public bool isDead;
     [SerializeField] private Slider healthSlider;
+
+    private Coroutine activePowerUp; // store the active power-up coroutine
+
 
     // Start is called before the first frame update
     void Start()
@@ -61,11 +64,16 @@ public class Driver : MonoBehaviour
             health = maxHealth;
         }
     }
-    
+
     // when collected slowdown powerdown :(
     public void SlowDown()
     {
-        StartCoroutine(SlowerCoroutine());
+        if (activePowerUp != null)
+        {
+            // Cancel the previous power-up
+            StopCoroutine(activePowerUp);
+        }
+        activePowerUp = StartCoroutine(SlowerCoroutine());
     }
 
     IEnumerator SlowerCoroutine()
@@ -78,7 +86,12 @@ public class Driver : MonoBehaviour
     // when collected boost :D
     public void Boost()
     {
-        StartCoroutine(BoostCoroutine());
+        if (activePowerUp != null)
+        {
+            // Cancel the previous power-up
+            StopCoroutine(activePowerUp);
+        }
+        activePowerUp = StartCoroutine(BoostCoroutine());
     }
 
     IEnumerator BoostCoroutine()
@@ -88,10 +101,15 @@ public class Driver : MonoBehaviour
         speed = regularSpeed;
     }
 
-    // when collected boost :D
+    // when collected beer
     public void Drink()
     {
-        StartCoroutine(BeerCoroutine());
+        if (activePowerUp != null)
+        {
+            // Cancel the previous power-up
+            StopCoroutine(activePowerUp);
+        }
+        activePowerUp = StartCoroutine(BeerCoroutine());
     }
 
     IEnumerator BeerCoroutine()
