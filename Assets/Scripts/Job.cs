@@ -7,7 +7,7 @@ using TMPro;
 using UnityEngine.Windows;
 
 // @author: chelsea houston
-// @date-last-update-dd-mm-yy: 13-10-23
+// @date-last-update-dd-mm-yy: 23-10-23
 
 // generates jobs at random and deals with money and navigation circles for each job
 

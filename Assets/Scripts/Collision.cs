@@ -39,10 +39,6 @@ public class Collision : MonoBehaviour
             // and remove waypoint from restaurant to customer house
             job.ShowCustomerAddress();
         }
-        else
-        {
-            // else do nothing
-        }
 
         // if the customer house is correct and pickedup is true
         if (thing.tag == "Current Customer" && pickedup)
@@ -54,10 +50,14 @@ public class Collision : MonoBehaviour
             job.CompleteJob();
         
         }
-        else
+
+        // if the driver collects a health powerup
+        if (thing.tag == "Health")
         {
-            // else do nothing
+            Debug.Log("Yay more health!");
+            driver.IncreaseHealth();
         }
+
     }
 
 
