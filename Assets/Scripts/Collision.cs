@@ -12,6 +12,7 @@ public class Collision : MonoBehaviour
     public GameObject data;
     public Driver driver;
     public Health health;
+    public SlowDown slowdown;
 
     private void Start()
     {
@@ -66,6 +67,8 @@ public class Collision : MonoBehaviour
         {
             Debug.Log("Oh No, less speed for 10 seconds!");
             driver.SlowDown();
+            AudioManager.Instance.PlaySFX("Collect");
+            slowdown.SlowDownCollected();
         }
 
     }

@@ -12,6 +12,7 @@ public class SlowDown : MonoBehaviour
     public int duration; // duration to wait before making a slowdown object active
     public int location; // position in list for slowdown location
     public bool counting; // if counting down dont change duration or spawn slowdown icon
+    public int currentIndex; // current index of health obj
 
     void Start()
     {
@@ -52,21 +53,27 @@ public class SlowDown : MonoBehaviour
     }
 
     // coroutine for spawning slowdown throughout the game
+    // coroutine for spawning health throughout the game
     IEnumerator SpawnSlowDown()
     {
         int time = GetDuration();
         counting = true;
-        Debug.Log("Time until slowdown spawn: " + time + " seconds!");
+        Debug.Log("Time until health spawn: " + time + " seconds!");
         yield return new WaitForSeconds(duration);
-        counting = false;
 
-        int index = GetLocation();
-        if (index >= 0 && index < slowdownObjs.Count)
+        currentIndex = GetLocation();
+        if (currentIndex >= 0 && currentIndex < slowdownObjs.Count)
         {
-            slowdownObjs[index].SetActive(true);
-            Debug.Log("Slowdown No: " + index + " active!");
-            slowdownObjs.RemoveAt(index);
+            slowdownObjs[currentIndex].SetActive(true);
+            Debug.Log("SlowDown No: " + currentIndex + " active!");
         }
+    }
+
+    public void SlowDownCollected()
+    {
+        slowdownObjs[currentIndex].SetActive(false);
+        slowdownObjs.RemoveAt(currentIndex);
+        counting = false;
     }
 }
 
