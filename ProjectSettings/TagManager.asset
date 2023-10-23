@@ -8,6 +8,8 @@ TagManager:
   - Current Customer
   - TargetCircle
   - Lights
+  - StreetItems
+  - Trees
   layers:
   - Default
   - TransparentFX
@@ -45,9 +47,15 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: StreetItems
+    uniqueID: 1677555933
+    locked: 0
+  - name: Buildings
+    uniqueID: 3441848865
+    locked: 0
   - name: Lamp
     uniqueID: 534106525
     locked: 0
-  - name: trees
+  - name: Trees
     uniqueID: 3631139821
     locked: 0
