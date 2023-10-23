@@ -63,8 +63,14 @@ public class Health : MonoBehaviour
         currentIndex = GetHealthLocation();
         if (currentIndex >= 0 && currentIndex < healthObjs.Count)
         {
+<<<<<<< Updated upstream
             healthObjs[currentIndex].SetActive(true);
             Debug.Log("Health No: " + currentIndex + "active!");
+=======
+            healthObjs[index].SetActive(true);
+            Debug.Log("Health No: " + index + " active!");
+            healthObjs.RemoveAt(index);
+>>>>>>> Stashed changes
         }
     }
 
