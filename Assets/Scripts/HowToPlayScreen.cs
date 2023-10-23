@@ -7,8 +7,8 @@ using UnityEngine;
 
 public class HowToPlayScreen : MonoBehaviour
 {
-    [SerializeField] private GameObject backButton;
-    [SerializeField] private GameObject howToPlayScreen;
+    [SerializeField] private GameObject backButton, nextButton1, nextButton2;
+    [SerializeField] private GameObject howToPlayScreen, howToPlayScreen2, howToPlayScreen3;
 
     // Start is called before the first frame update
     void Start()
@@ -16,10 +16,20 @@ public class HowToPlayScreen : MonoBehaviour
         
     }
 
-    // Update is called once per frame
-    public void Back()
+    public void LoadHTP2()
     {
         howToPlayScreen.SetActive(false);
-       
+        howToPlayScreen2.SetActive(true);
+    }
+
+    public void LoadHTP3()
+    {
+        howToPlayScreen2.SetActive(false);
+        howToPlayScreen3.SetActive(true);
+    }
+
+    public void MainMenu()
+    {
+        howToPlayScreen3.SetActive(false);
     }
 }

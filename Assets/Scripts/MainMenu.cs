@@ -9,13 +9,15 @@ using UnityEngine.SceneManagement;
 public class MainMenu : MonoBehaviour
 {
 
-    [SerializeField] private GameObject startButton, howToPlayButton, optionsButton, creditsButton, exitButton, optionsMenu, highScores, howToPlayScreen;
+    [SerializeField] private GameObject startButton, howToPlayButton, optionsButton, creditsButton, exitButton, optionsMenu, highScores, howToPlayScreen, howToPlayScreen2, howToPlayScreen3;
 
     void Start()
     {
         optionsMenu.SetActive(false);
         highScores.SetActive(false);
         howToPlayScreen.SetActive(false);
+        howToPlayScreen2.SetActive(false);
+        howToPlayScreen3.SetActive(false);
     }
 
     public void StartGame()
