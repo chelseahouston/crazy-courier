@@ -12,6 +12,7 @@ public class Health : MonoBehaviour
     public int duration; // duration to wait before making a health object active
     public int location; // position in list for health location
     public bool counting; // if counting down dont change duration or spawn health icon
+    public int currentIndex; // current index of health obj
 
     void Start()
     {
@@ -40,7 +41,7 @@ public class Health : MonoBehaviour
     // how long to countdown until spawn
     public int GetDuration()
     {
-        duration = Random.Range(20, 40);
+        duration = Random.Range(10, 40);
         return duration;
     }
 
@@ -58,15 +59,21 @@ public class Health : MonoBehaviour
         counting = true;
         Debug.Log("Time until health spawn: " + time + " seconds!");
         yield return new WaitForSeconds(duration);
-        counting = false;
 
-        int index = GetHealthLocation();
-        if (index >= 0 && index < healthObjs.Count)
+        currentIndex = GetHealthLocation();
+        if (currentIndex >= 0 && currentIndex < healthObjs.Count)
         {
-            healthObjs[index].SetActive(true);
-            Debug.Log("Health No: " + index + "active!");
-            healthObjs.RemoveAt(index);
+            healthObjs[currentIndex].SetActive(true);
+            Debug.Log("Health No: " + currentIndex + "active!");
         }
     }
+
+    public void HealthCollected()
+    {
+        healthObjs[currentIndex].SetActive(false); 
+        healthObjs.RemoveAt(currentIndex);
+        counting = false;
+    }
+
 }
 
