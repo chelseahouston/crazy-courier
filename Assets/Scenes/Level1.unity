@@ -24799,6 +24799,7 @@ MonoBehaviour:
   job: {fileID: 0}
   data: {fileID: 0}
   driver: {fileID: 556550690}
+  health: {fileID: 556550696}
 --- !u!114 &556550696
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -24815,6 +24816,7 @@ MonoBehaviour:
   duration: 0
   location: 0
   counting: 0
+  currentIndex: 0
 --- !u!1 &558726089
 GameObject:
   m_ObjectHideFlags: 0

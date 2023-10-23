@@ -11,6 +11,7 @@ public class Collision : MonoBehaviour
     public Job job; // job script
     public GameObject data;
     public Driver driver;
+    public Health health;
 
     private void Start()
     {
@@ -44,7 +45,7 @@ public class Collision : MonoBehaviour
         if (thing.tag == "Current Customer" && pickedup)
         {
             Debug.Log("Delivered to Customer!");
-            AudioManager.Instance.PlaySFX("Dropoff");
+            AudioManager.Instance.PlaySFX("DropOff");
             // deliver order
             pickedup = false;
             job.CompleteJob();
@@ -54,8 +55,10 @@ public class Collision : MonoBehaviour
         // if the driver collects a health powerup
         if (thing.tag == "Health")
         {
-            Debug.Log("Yay more health!");
             driver.IncreaseHealth();
+            Debug.Log("Yay more health! Health = " + driver.health + "!") ;
+            AudioManager.Instance.PlaySFX("Collect");
+            health.HealthCollected();
         }
 
     }
