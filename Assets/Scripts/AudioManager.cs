@@ -1,105 +1,125 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using System;
-using UnityEngine.Audio;
-using UnityEngine.UI;
+using System.Collections.Generic;
 
 // @author: chelsea houston
-// @date-last-update-dd-mm-yy: 20-10-23
+// @date-last-update-dd-mm-yy: 23-10-23
 
 public class AudioManager : MonoBehaviour
 {
-    public Sound[] music, sfx;
-    public AudioSource musicSource, sfxSource;
-    public Slider volumeSlider;
-    public Slider sfxSlider;
     public static AudioManager Instance;
 
-    public static float savedMusicVolume, savedSfxVolume;
+    public AudioSource musicSource;
+    public AudioSource[] sfxSources;
 
-    public AudioSource getMusicSource
-    { get { return musicSource; } }
+    public List<AudioClip> musicClips; // List of available music clips
+    public List<AudioClip> sfxClips;   // List of available SFX clips
 
-    public AudioSource getSfxSource
-    { get { return sfxSource; } }
+    private Dictionary<string, AudioClip> musicClipDict = new Dictionary<string, AudioClip>();
+    private Dictionary<string, AudioClip> sfxClipDict = new Dictionary<string, AudioClip>();
 
-    void Awake()
+    private float musicVolume = 1.0f;
+    private float sfxVolume = 1.0f;
+
+    public const string MusicVolumeKey = "MusicVolume";
+    public const string SFXVolumeKey = "SFXVolume";
+
+    private void Awake()
     {
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject);
         }
-        else
+        else if (Instance != this)
         {
             Destroy(gameObject);
         }
+
+        DontDestroyOnLoad(gameObject);
+
+        // Populate the clip dictionaries for faster lookup
+        foreach (var clip in musicClips)
+        {
+            musicClipDict[clip.name] = clip;
+        }
+
+        foreach (var clip in sfxClips)
+        {
+            sfxClipDict[clip.name] = clip;
+        }
+
+        // Load volume prefs
+        musicVolume = PlayerPrefs.GetFloat(MusicVolumeKey, 1.0f);
+        sfxVolume = PlayerPrefs.GetFloat(SFXVolumeKey, 1.0f);
     }
 
-    public void PlayMusic(string name)
+    public void PlayMusic(string musicClipName)
     {
-        Sound sound = Array.Find(music, x => x.name == name);
-
-        if (sound != null)
+        if (musicClipDict.ContainsKey(musicClipName))
         {
-            musicSource.clip = sound.clip;
+            musicSource.clip = musicClipDict[musicClipName];
             musicSource.Play();
         }
-
         else
         {
-            Debug.Log(name + " sound not found!");
+            Debug.LogError("Music clip not found: " + musicClipName);
         }
     }
 
-
-    public void PlaySFX(string name)
+    public void PlaySFX(string sfxClipName)
     {
-        Sound sound = Array.Find(sfx, x => x.name == name);
-
-        if (sound != null && !sfxSource.isPlaying)
+        if (sfxClipDict.ContainsKey(sfxClipName))
         {
-            sfxSource.clip = sound.clip;
-            sfxSource.Play();
+            AudioSource source = GetAvailableSFXSource();
+            if (source != null)
+            {
+                source.clip = sfxClipDict[sfxClipName];
+                source.Play();
+            }
         }
-
         else
         {
-            Debug.Log(name + " sfx not found!");
+            Debug.LogError("SFX clip not found: " + sfxClipName);
         }
+    }
+
+    private AudioSource GetAvailableSFXSource()
+    {
+        foreach (var source in sfxSources)
+        {
+            if (!source.isPlaying)
+            {
+                return source;
+            }
+        }
+        return null;
     }
 
     public void SetMusicVolume(float volume)
     {
-        AudioManager.Instance.getMusicSource.volume = volume;
-        PlayerPrefs.SetFloat("MusicVolume", volume);
-        savedMusicVolume = PlayerPrefs.GetFloat("MusicVolume");
-        LoadVolumePrefs();
+        musicVolume = volume;
+        musicSource.volume = volume;
+        PlayerPrefs.SetFloat(MusicVolumeKey, volume);
+        PlayerPrefs.Save();
     }
 
     public void SetSFXVolume(float volume)
     {
-        AudioManager.Instance.getSfxSource.volume = volume;
-        PlayerPrefs.SetFloat("SfxVolume", volume);
-        savedSfxVolume = PlayerPrefs.GetFloat("SfxVolume");
-        LoadVolumePrefs();
+        sfxVolume = volume;
+        foreach (var source in sfxSources)
+        {
+            source.volume = volume;
+        }
+        PlayerPrefs.SetFloat(SFXVolumeKey, volume);
+        PlayerPrefs.Save();
     }
 
-
-    public void LoadVolumePrefs()
+    public float GetMusicVolume()
     {
-        // Update the sliders with the loaded values
-        sfxSlider.value = savedSfxVolume;
-        volumeSlider.value = savedMusicVolume;
+        return musicVolume;
     }
 
-
-    void OnApplicationQuit()
+    public float GetSFXVolume()
     {
-        musicSource.Stop();
+        return sfxVolume;
     }
-
-
-
 }

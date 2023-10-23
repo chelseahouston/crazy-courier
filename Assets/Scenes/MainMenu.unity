@@ -2639,36 +2639,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13d9526760ebd374c9e2a16aa1f1cb3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  music:
-  - name: MainMusic
-    clip: {fileID: 8300000, guid: cd4160ab2d9906147904d5e54a478af5, type: 3}
-    volume: 0
-    source: {fileID: 0}
-  sfx:
-  - name: Crash
-    clip: {fileID: 8300000, guid: da2b0538a4c64294cacfb96990b8247e, type: 3}
-    volume: 0
-    source: {fileID: 0}
-  - name: Collect
-    clip: {fileID: 8300000, guid: 8204279ca6e03e04ba604b76a77de120, type: 3}
-    volume: 0
-    source: {fileID: 0}
-  - name: DropOff
-    clip: {fileID: 8300000, guid: bc44af01cd637874da609ce90fe7adf6, type: 3}
-    volume: 0
-    source: {fileID: 0}
-  - name: Car
-    clip: {fileID: 8300000, guid: 4f3fd0f596abb644d8415e606a0da5df, type: 3}
-    volume: 0
-    source: {fileID: 0}
-  - name: NewJob
-    clip: {fileID: 8300000, guid: d2894ec172c7f30419ec49d9d882da04, type: 3}
-    volume: 0
-    source: {fileID: 0}
   musicSource: {fileID: 2060108659}
-  sfxSource: {fileID: 2055760371}
-  volumeSlider: {fileID: 237264979}
-  sfxSlider: {fileID: 1418034310}
+  sfxSources:
+  - {fileID: 2055760371}
+  musicClips:
+  - {fileID: 8300000, guid: cd4160ab2d9906147904d5e54a478af5, type: 3}
+  sfxClips:
+  - {fileID: 8300000, guid: da2b0538a4c64294cacfb96990b8247e, type: 3}
+  - {fileID: 8300000, guid: 8204279ca6e03e04ba604b76a77de120, type: 3}
+  - {fileID: 8300000, guid: bc44af01cd637874da609ce90fe7adf6, type: 3}
+  - {fileID: 8300000, guid: d2894ec172c7f30419ec49d9d882da04, type: 3}
 --- !u!1 &1110221029
 GameObject:
   m_ObjectHideFlags: 0
@@ -3758,7 +3738,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1210786473}
         m_TargetAssemblyTypeName: MainOptionsMenu, Assembly-CSharp
-        m_MethodName: ToggleSFXvolume
+        m_MethodName: ToggleSFXVolume
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
