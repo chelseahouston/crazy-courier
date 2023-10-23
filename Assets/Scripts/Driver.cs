@@ -11,6 +11,7 @@ public class Driver : MonoBehaviour
 {
     [SerializeField] public float speed; // accelleration
     [SerializeField] public float steerSpeed; // speed of turning L or R
+    public float slowSpeed, regularSpeed, boostSpeed; // power up/down speeds
     public int health, maxHealth;
     public bool isDead;
     [SerializeField] private Slider healthSlider;
@@ -20,6 +21,9 @@ public class Driver : MonoBehaviour
     {
         maxHealth = 30;
         speed = 15f;
+        slowSpeed = 9f;
+        boostSpeed = 30f;
+        regularSpeed = 15f;
         steerSpeed = 270f;
         health = maxHealth;
         isDead = false;
@@ -66,9 +70,9 @@ public class Driver : MonoBehaviour
 
     IEnumerator SlowerCoroutine()
     {
-        speed = speed / 2;
+        speed = slowSpeed;
         yield return new WaitForSeconds(8);
-        speed = speed * 2;
+        speed = regularSpeed;
     }
 
     // when collected boost :D
@@ -79,9 +83,9 @@ public class Driver : MonoBehaviour
 
     IEnumerator BoostCoroutine()
     {
-        speed = speed * 2;
+        speed = boostSpeed;
         yield return new WaitForSeconds(2);
-        speed = speed / 2;
+        speed = regularSpeed;
     }
 
     // when collected boost :D
@@ -94,7 +98,7 @@ public class Driver : MonoBehaviour
     {
         // original values
         float originalSteerSpeed = steerSpeed;
-        float originalSpeed = speed;
+        float originalSpeed = regularSpeed;
 
         // invert the controls for 8 secs
         steerSpeed = -originalSteerSpeed;
