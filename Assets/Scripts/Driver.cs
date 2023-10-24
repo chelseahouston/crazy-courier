@@ -2,22 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+using TMPro;
 
 // @author: chelsea houston
-// @date-last-update-dd-mm-yy: 13-10-23
+// @date-last-update-dd-mm-yy: 24-10-23
 
 public class Driver : MonoBehaviour
 {
     [SerializeField] public float speed; // acceleration
-    [SerializeField] public float steerSpeed; // speed of turning L or R
-    public float slowSpeed, regularSpeed, boostSpeed; // power up/down speeds
+    [SerializeField] public float steerSpeed, originalSteerSpeed; // speed of turning L or R
+    public float slowSpeed, originalSpeed, boostSpeed; // power up/down speeds
     public int health, maxHealth;
     public bool isDead;
     [SerializeField] private Slider healthSlider;
+    public TMP_Text powerUI;
 
     private Coroutine activePowerUp; // store the active power-up coroutine
-
 
     // Start is called before the first frame update
     void Start()
@@ -26,19 +26,21 @@ public class Driver : MonoBehaviour
         speed = 15f;
         slowSpeed = 9f;
         boostSpeed = 30f;
-        regularSpeed = 15f;
+        originalSpeed = 15f;
         steerSpeed = 270f;
+        originalSteerSpeed = 270f;
         health = maxHealth;
         isDead = false;
+        powerUI.text = "";
     }
 
     // Update is called once per frame
     void Update()
     {
-        float steerAmount = Input.GetAxis("Horizontal") * steerSpeed * Time.deltaTime; // get user L + R / A + D input
+        float steerAmount = Input.GetAxis("Horizontal") * steerSpeed * Time.deltaTime; // get user left + right / A key + D key inputs
         transform.Rotate(0, 0, -steerAmount);
 
-        float moveSpeed = Input.GetAxis("Vertical") * speed * Time.deltaTime; // get user F + B / W + S input
+        float moveSpeed = Input.GetAxis("Vertical") * speed * Time.deltaTime; // get user forward + backward / W key + S key inputs
         transform.Translate(0, moveSpeed, 0);
 
         if (health <= 0)
@@ -58,11 +60,22 @@ public class Driver : MonoBehaviour
     // when collecting health powerup
     public void IncreaseHealth()
     {
+        StartCoroutine(AddHealthCoroutine());
+    }
+
+    IEnumerator AddHealthCoroutine() {
         health = health + 5;
         if (health > maxHealth)
         {
             health = maxHealth;
         }
+        powerUI.color = Color.green;
+        powerUI.text = "+Health";
+
+        yield return new WaitForSeconds(1.5f);
+
+        powerUI.text = "";
+
     }
 
     // when collected slowdown powerdown :(
@@ -78,9 +91,15 @@ public class Driver : MonoBehaviour
 
     IEnumerator SlowerCoroutine()
     {
+        steerSpeed = originalSteerSpeed;
         speed = slowSpeed;
+        powerUI.color = Color.red;
+        powerUI.text = "Slower Speed";
+
         yield return new WaitForSeconds(8);
-        speed = regularSpeed;
+
+        powerUI.text = "";
+        speed = originalSpeed;
     }
 
     // when collected boost :D
@@ -97,8 +116,15 @@ public class Driver : MonoBehaviour
     IEnumerator BoostCoroutine()
     {
         speed = boostSpeed;
+        steerSpeed = originalSteerSpeed;
+
+        powerUI.color = new Color(0.03f, 0.9f, 1.0f, 1.0f);
+        powerUI.text = "<i>BOOOOOOST!</i>";
+
         yield return new WaitForSeconds(2);
-        speed = regularSpeed;
+
+        powerUI.text = "";
+        speed = originalSpeed;
     }
 
     // when collected beer
@@ -114,18 +140,20 @@ public class Driver : MonoBehaviour
 
     IEnumerator BeerCoroutine()
     {
-        // original values
-        float originalSteerSpeed = steerSpeed;
-        float originalSpeed = regularSpeed;
 
         // invert the controls for 8 secs
         steerSpeed = -originalSteerSpeed;
         speed = -originalSpeed;
+
+        powerUI.color = new Color(1.0f, 0.5f, 0.0f, 1.0f);
+        powerUI.text = "Drunnkkedd... hiccup!";
+
         yield return new WaitForSeconds(8);
 
         // restore the original values
         steerSpeed = originalSteerSpeed;
         speed = originalSpeed;
+        powerUI.text = "";
     }
 
 
