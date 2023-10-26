@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 
 // @author: chelsea houston
-// @date-last-update-dd-mm-yy: 24-10-23
+// @date-last-update-dd-mm-yy: 26-10-23
 
 public class Driver : MonoBehaviour
 {
@@ -16,6 +16,7 @@ public class Driver : MonoBehaviour
     public bool isDead;
     [SerializeField] private Slider healthSlider;
     public TMP_Text powerUI;
+    public TMP_Text healthText;
 
     private Coroutine activePowerUp; // store the active power-up coroutine
 
@@ -43,12 +44,15 @@ public class Driver : MonoBehaviour
         float moveSpeed = Input.GetAxis("Vertical") * speed * Time.deltaTime; // get user forward + backward / W key + S key inputs
         transform.Translate(0, moveSpeed, 0);
 
+        healthSlider.value = health;
+
+        healthText.text = health + "/" + maxHealth;
+
         if (health <= 0)
         {
+            health = 0;
             isDead = true;
         }
-
-        healthSlider.value = health;
     }
 
     public void DecreaseHealth()
